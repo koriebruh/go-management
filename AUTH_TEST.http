@@ -1,0 +1,33 @@
+### GET request to example server
+POST http://localhost:3000/api/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "korie",
+  "password": "korie123",
+  "email": "koriebruh@example.com"
+}
+
+###
+POST http://localhost:3000/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "korie",
+  "password": "korie123"
+}
+
+###
+GET http://localhost:3000/hi
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDkxNDQyNH0.y4GXqDVkx4PSgzVssW3ifOGwFvmw1pG7O84_MPo3aIw
+
+
+###
+POST http://localhost:3000//api/auth/logout
+Accept: application/json
+Content-Type: application/json
+
