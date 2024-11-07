@@ -1,0 +1,29 @@
+### LOGIN FIRST
+POST http://localhost:3000/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "korie",
+  "password": "korie123"
+}
+
+###
+POST http://localhost:3000/api/categories
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk5MDAxMn0.PII1KKpwsXcvkVwkQIo2aFOeK6o0tiYlRQN9QLF1yLs
+
+{
+  "name": "Electronic",
+  "description": "Elektronika merupakan ilmu yang mempelajari alat listrik arus lemah yang dioperasikan dengan cara mengontrol aliran elektron atau partikel bermuatan listrik dalam suatu alat seperti komputer, peralatan elektronik, termokopel, semikonduktor, dan lain sebagainya."
+}
+
+
+###
+GET http://localhost:3000/api/categories
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk4ODM1MX0.2hWznN0V2HtVaHjWNktmGCxHoE15yygvgcdz5DWRyfM
+
+

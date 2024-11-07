@@ -6,3 +6,5 @@ SHOW TABLES ;
 
 desc admins;
 select * from admins;
+
+desc categories;

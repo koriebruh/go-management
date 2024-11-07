@@ -17,6 +17,10 @@ func main() {
 	authService := service.NewAuthService(db, authRepository)
 	authController := controller.NewAuthController(authService)
 
+	categoryRepository := repository.NewCategoryRepository()
+	categoryService := service.NewCategoryService(db, categoryRepository)
+	categoryController := controller.NewCategoryController(categoryService)
+
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{}))
 
@@ -26,6 +30,9 @@ func main() {
 
 	authorized := app.Group("/", cnf.JWTAuthMiddleware)
 	authorized.Get("/hi", hellobg)
+
+	authorized.Get("api/categories", categoryController.FindAllByCategory)
+	authorized.Post("api/categories", categoryController.Create)
 
 	err := app.Listen(cnf.GetConfig().Server.Port)
 	if err != nil {
