@@ -1,4 +1,4 @@
-###
+### LOGIN GET TOKEN
 POST http://localhost:3000/api/auth/login
 Accept: application/json
 Content-Type: application/json
@@ -8,7 +8,7 @@ Content-Type: application/json
   "password": "korie123"
 }
 
-###
+### CREATE
 POST http://localhost:3000/api/items
 Accept: application/json
 Content-Type: application/json
@@ -23,14 +23,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hb
   "supplier_id": 1
 }
 
-###
+### FINDALL
 GET http://localhost:3000/api/items
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTA4NTgxNX0.USF01w3zzPEg8be6Ydszxul_y0JqqVhqPcIiUH3SxRg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4
 
-###
+### SUMARY
 GET http://localhost:3000/api/items/info
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTA5NzcyMn0.Dkpc06ZB88D8NdEZMHA88-vIxRsJLgqbeWlyjYnWVX0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4
+
+
+### FIND BY CONDITION
+GET http://localhost:3000/api/items/condition?condition=under&threshold=4
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4
+
+### FIND BY CONDITION
+GET http://localhost:3000/api/items/condition?condition=over&threshold=4
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4
+
+### FIND BY CONDITION
+GET http://localhost:3000/api/items/condition?condition=equal&threshold=10
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4

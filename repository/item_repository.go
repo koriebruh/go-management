@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"gorm.io/gorm"
 	"koriebruh/management/domain"
 	"koriebruh/management/dto"
@@ -12,6 +13,7 @@ type ItemRepository interface {
 	Create(ctx context.Context, db *gorm.DB, item domain.Item) error
 	FindAllItem(ctx context.Context, db *gorm.DB) ([]domain.Item, error)
 	SummaryItem(ctx context.Context, db *gorm.DB) (dto.SummaryItem, error)
+	FindByCondition(ctx context.Context, db *gorm.DB, condition string, threshold int) ([]domain.Item, error)
 }
 
 type ItemRepositoryImpl struct {
@@ -86,3 +88,28 @@ func (repo ItemRepositoryImpl) SummaryItem(ctx context.Context, db *gorm.DB) (dt
 
 	return summary, nil
 }
+
+
+func (repo ItemRepositoryImpl) FindByCondition(ctx context.Context, db *gorm.DB, condition string, threshold int) ([]domain.Item, error) {
+	var items []domain.Item
+
+	switch condition {
+	case "under":
+		if err := db.WithContext(ctx).Where("quantity < ?", threshold).Find(&items).Error; err != nil {
+			return nil, err
+		}
+	case "over":
+		if err := db.WithContext(ctx).Where("quantity > ?", threshold).Find(&items).Error; err != nil {
+			return nil, err
+		}
+	case "equal":
+		if err := db.WithContext(ctx).Where("quantity = ?", threshold).Find(&items).Error; err != nil {
+			return nil, err
+		}
+	default:
+		return nil, errors.New("invalid condition: must be 'under', 'over', or 'equal'")
+	}
+
+	return items, nil
+}
+

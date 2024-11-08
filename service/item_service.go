@@ -16,7 +16,8 @@ type ItemService interface {
 	Create(ctx context.Context, token string, request dto.ItemRequest) error
 	FindAllItem(ctx context.Context) ([]dto.ItemResponse, error)
 	SummaryItem(ctx context.Context) (dto.SummaryItem, error)
-}
+	FindByCondition(ctx context.Context, condition string, threshold int) ([]dto.ItemResponse, error)
+
 
 type ItemServiceImpl struct {
 	repository.ItemRepository
@@ -93,20 +94,71 @@ func (service ItemServiceImpl) FindAllItem(ctx context.Context) ([]dto.ItemRespo
 			Description: item.Description,
 			Price:       item.Price,
 			Quantity:    item.Quantity,
-			Category: dto.CategoryItem{
-				ID:   int(item.Category.ID),
-				Name: item.Category.Name,
-			},
-			Supplier: dto.SupplierItem{
-				ID:   int(item.Supplier.ID),
-				Name: item.Supplier.Name,
-			},
-			CreatedBy: dto.AdminItem{
-				ID:       int(item.Admin.ID),
-				Username: item.Admin.Username,
-			},
-			CreatedAt: item.CreatedAt,
-			UpdatedAt: item.UpdatedAt,
+			Category:    item.Category.Name,
+			Supplier:    item.Supplier.Name,
+			CreatedBy:   item.Admin.Username,
+			CreatedAt:   item.CreatedAt,
+			UpdatedAt:   item.UpdatedAt,
+		}
+		itemResponses = append(itemResponses, itemResponse)
+	}
+
+	return itemResponses, nil
+}
+
+func (service ItemServiceImpl) SummaryItem(ctx context.Context) (dto.SummaryItem, error) {
+
+	var summary dto.SummaryItem
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+		itemInfo, err := service.ItemRepository.SummaryItem(ctx, tx)
+		if err != nil {
+			return err
+		}
+
+		summary = itemInfo
+		return nil
+	})
+
+	if err != nil {
+		return summary, errors.New("error transactional item")
+	}
+
+	return summary, nil
+}
+
+func (service ItemServiceImpl) FindByCondition(ctx context.Context, condition string, threshold int) ([]dto.ItemResponse, error) {
+	var items []domain.Item
+	var itemResponses []dto.ItemResponse
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+		item, err := service.ItemRepository.FindByCondition(ctx, tx, condition, threshold)
+		if err != nil {
+			return err
+		}
+
+		items = item
+
+		return nil
+	})
+
+	if err != nil {
+		return itemResponses, errors.New("failed get record items")
+	}
+
+	//MAPPING RECORD TO DTO
+	for _, item := range items {
+		itemResponse := dto.ItemResponse{
+			ID:          int(item.ID),
+			Name:        item.Name,
+			Description: item.Description,
+			Price:       item.Price,
+			Quantity:    item.Quantity,
+			Category:    item.Category.Name,
+			Supplier:    item.Supplier.Name,
+			CreatedBy:   item.Admin.Username,
+			CreatedAt:   item.CreatedAt,
+			UpdatedAt:   item.UpdatedAt,
 		}
 		itemResponses = append(itemResponses, itemResponse)
 	}
