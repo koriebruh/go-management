@@ -4,13 +4,16 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"koriebruh/management/dto"
 	"koriebruh/management/service"
+	"log"
 	"net/http"
+	"strconv"
 )
 
 type ItemController interface {
 	CreateItem(ctx *fiber.Ctx) error
 	FindAllByItem(ctx *fiber.Ctx) error
 	SummaryItem(ctx *fiber.Ctx) error
+	FindByCondition(ctx *fiber.Ctx) error
 }
 
 type ItemControllerImpl struct {
@@ -87,4 +90,49 @@ func (controller ItemControllerImpl) SummaryItem(ctx *fiber.Ctx) error {
 		Status: "OK",
 		Data:   summary,
 	})
+}
+
+func (controller ItemControllerImpl) FindByCondition(ctx *fiber.Ctx) error {
+	// TAKE VALUE PARAM
+	condition := ctx.Query("condition")
+	thresholdStr := ctx.Query("threshold", "0")
+
+	threshold, err := strconv.Atoi(thresholdStr)
+	if err != nil {
+		log.Printf("error thresholdStr %v", err.Error())
+		return ctx.Status(fiber.StatusBadRequest).JSON(dto.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "Bad Request",
+			Data: map[string]string{
+				"error": "Invalid threshold value",
+			},
+		})
+	}
+
+	if condition == "" {
+		log.Println("error condition ")
+		return ctx.Status(fiber.StatusBadRequest).JSON(dto.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "Bad Request",
+			Data: map[string]string{
+				"error": "Condition parameter is required",
+			},
+		})
+	}
+
+	valueCondition, err := controller.ItemService.FindByCondition(ctx.Context(), condition, threshold)
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "Internal Server Error",
+			Data:   err.Error(),
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   valueCondition,
+	})
+
 }
