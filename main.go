@@ -21,6 +21,10 @@ func main() {
 	categoryService := service.NewCategoryService(db, categoryRepository)
 	categoryController := controller.NewCategoryController(categoryService)
 
+	itemRepository := repository.NewItemRepository()
+	itemService := service.NewItemService(itemRepository, db)
+	itemController := controller.NewItemController(itemService)
+
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{}))
 
@@ -33,6 +37,9 @@ func main() {
 
 	authorized.Get("api/categories", categoryController.FindAllByCategory)
 	authorized.Post("api/categories", categoryController.Create)
+
+	authorized.Get("api/items", itemController.FindAllByItem)
+	authorized.Post("api/items", itemController.CreateItem)
 
 	err := app.Listen(cnf.GetConfig().Server.Port)
 	if err != nil {
