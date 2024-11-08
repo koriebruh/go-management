@@ -28,3 +28,9 @@ GET http://localhost:3000/api/items
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTA4NTgxNX0.USF01w3zzPEg8be6Ydszxul_y0JqqVhqPcIiUH3SxRg
+
+###
+GET http://localhost:3000/api/items/info
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTA5NzcyMn0.Dkpc06ZB88D8NdEZMHA88-vIxRsJLgqbeWlyjYnWVX0
