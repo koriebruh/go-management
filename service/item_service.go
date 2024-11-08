@@ -17,7 +17,7 @@ type ItemService interface {
 	FindAllItem(ctx context.Context) ([]dto.ItemResponse, error)
 	SummaryItem(ctx context.Context) (dto.SummaryItem, error)
 	FindByCondition(ctx context.Context, condition string, threshold int) ([]dto.ItemResponse, error)
-}
+
 
 type ItemServiceImpl struct {
 	repository.ItemRepository
@@ -164,4 +164,25 @@ func (service ItemServiceImpl) FindByCondition(ctx context.Context, condition st
 	}
 
 	return itemResponses, nil
+}
+
+func (service ItemServiceImpl) SummaryItem(ctx context.Context) (dto.SummaryItem, error) {
+
+	var summary dto.SummaryItem
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+		itemInfo, err := service.ItemRepository.SummaryItem(ctx, tx)
+		if err != nil {
+			return err
+		}
+
+		summary = itemInfo
+		return nil
+	})
+
+	if err != nil {
+		return summary, errors.New("error transactional item")
+	}
+
+	return summary, nil
 }

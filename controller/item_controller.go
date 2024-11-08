@@ -14,7 +14,7 @@ type ItemController interface {
 	FindAllByItem(ctx *fiber.Ctx) error
 	SummaryItem(ctx *fiber.Ctx) error
 	FindByCondition(ctx *fiber.Ctx) error
-}
+
 
 type ItemControllerImpl struct {
 	service.ItemService
@@ -92,6 +92,7 @@ func (controller ItemControllerImpl) SummaryItem(ctx *fiber.Ctx) error {
 	})
 }
 
+
 func (controller ItemControllerImpl) FindByCondition(ctx *fiber.Ctx) error {
 	// TAKE VALUE PARAM
 	condition := ctx.Query("condition")
@@ -136,3 +137,4 @@ func (controller ItemControllerImpl) FindByCondition(ctx *fiber.Ctx) error {
 	})
 
 }
+
