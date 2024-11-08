@@ -8,3 +8,10 @@ desc admins;
 select * from admins;
 
 desc categories;
+select * from categories;
+
+desc suppliers;
+select * from suppliers;
+
+desc items;
+select * from items;

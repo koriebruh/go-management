@@ -1,0 +1,30 @@
+###
+POST http://localhost:3000/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "korie",
+  "password": "korie123"
+}
+
+###
+POST http://localhost:3000/api/items
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTA4NTc0OH0.aiH-2NK9LHN8Z3ErnL_kApywGZx9zSLo3fceziBA4Ug
+
+{
+  "name": "Iphone 12x",
+  "description": "Limited edition for jamal Only",
+  "price": 32000000,
+  "quantity": 3,
+  "category_id": 1,
+  "supplier_id": 1
+}
+
+###
+GET http://localhost:3000/api/items
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTA4NTgxNX0.USF01w3zzPEg8be6Ydszxul_y0JqqVhqPcIiUH3SxRg

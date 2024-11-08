@@ -12,11 +12,11 @@ Content-Type: application/json
 POST http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk5MDAxMn0.PII1KKpwsXcvkVwkQIo2aFOeK6o0tiYlRQN9QLF1yLs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk5NDc3M30.F5iHtbLTwDL0Uu2BV8nXo-N5eq0I_NhanMlPsRhXI78
 
 {
-  "name": "Electronic",
-  "description": "Elektronika merupakan ilmu yang mempelajari alat listrik arus lemah yang dioperasikan dengan cara mengontrol aliran elektron atau partikel bermuatan listrik dalam suatu alat seperti komputer, peralatan elektronik, termokopel, semikonduktor, dan lain sebagainya."
+  "name": "Comsetic",
+  "description": "Ya kosmetik lah"
 }
 
 
@@ -24,6 +24,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hb
 GET http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk4ODM1MX0.2hWznN0V2HtVaHjWNktmGCxHoE15yygvgcdz5DWRyfM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk5NDc3M30.F5iHtbLTwDL0Uu2BV8nXo-N5eq0I_NhanMlPsRhXI78
 
 
