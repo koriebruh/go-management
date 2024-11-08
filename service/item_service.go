@@ -15,6 +15,7 @@ import (
 type ItemService interface {
 	Create(ctx context.Context, token string, request dto.ItemRequest) error
 	FindAllItem(ctx context.Context) ([]dto.ItemResponse, error)
+	SummaryItem(ctx context.Context) (dto.SummaryItem, error)
 }
 
 type ItemServiceImpl struct {
@@ -111,4 +112,25 @@ func (service ItemServiceImpl) FindAllItem(ctx context.Context) ([]dto.ItemRespo
 	}
 
 	return itemResponses, nil
+}
+
+func (service ItemServiceImpl) SummaryItem(ctx context.Context) (dto.SummaryItem, error) {
+
+	var summary dto.SummaryItem
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+		itemInfo, err := service.ItemRepository.SummaryItem(ctx, tx)
+		if err != nil {
+			return err
+		}
+
+		summary = itemInfo
+		return nil
+	})
+
+	if err != nil {
+		return summary, errors.New("error transactional item")
+	}
+
+	return summary, nil
 }

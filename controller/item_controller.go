@@ -9,7 +9,8 @@ import (
 
 type ItemController interface {
 	CreateItem(ctx *fiber.Ctx) error
-	FindAllByCategory(ctx *fiber.Ctx) error
+	FindAllByItem(ctx *fiber.Ctx) error
+	SummaryItem(ctx *fiber.Ctx) error
 }
 
 type ItemControllerImpl struct {
@@ -69,4 +70,21 @@ func (controller ItemControllerImpl) FindAllByItem(ctx *fiber.Ctx) error {
 		Data:   item,
 	})
 
+}
+
+func (controller ItemControllerImpl) SummaryItem(ctx *fiber.Ctx) error {
+	summary, err := controller.ItemService.SummaryItem(ctx.Context())
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "Internal Server Error",
+			Data:   err.Error(),
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   summary,
+	})
 }
