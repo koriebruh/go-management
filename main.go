@@ -43,6 +43,7 @@ func main() {
 	authorized.Post("api/items", itemController.CreateItem)
 	authorized.Get("api/items/info", itemController.SummaryItem)
 	authorized.Get("api/items/condition", itemController.FindByCondition)
+	authorized.Get("api/items/metric", itemController.InventoryMetrics)
 
 	err := app.Listen(cnf.GetConfig().Server.Port)
 	if err != nil {

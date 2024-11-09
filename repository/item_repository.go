@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"errors"
+	"fmt"
 	"gorm.io/gorm"
 	"koriebruh/management/domain"
 	"koriebruh/management/dto"
@@ -14,6 +15,7 @@ type ItemRepository interface {
 	FindAllItem(ctx context.Context, db *gorm.DB) ([]domain.Item, error)
 	SummaryItem(ctx context.Context, db *gorm.DB) (dto.SummaryItem, error)
 	FindByCondition(ctx context.Context, db *gorm.DB, condition string, threshold int) ([]domain.Item, error)
+	InventoryMetrics(ctx context.Context, db *gorm.DB) (dto.InventoryMetrics, error)
 }
 
 type ItemRepositoryImpl struct {
@@ -89,7 +91,6 @@ func (repo ItemRepositoryImpl) SummaryItem(ctx context.Context, db *gorm.DB) (dt
 	return summary, nil
 }
 
-
 func (repo ItemRepositoryImpl) FindByCondition(ctx context.Context, db *gorm.DB, condition string, threshold int) ([]domain.Item, error) {
 	var items []domain.Item
 
@@ -113,3 +114,87 @@ func (repo ItemRepositoryImpl) FindByCondition(ctx context.Context, db *gorm.DB,
 	return items, nil
 }
 
+func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB) (dto.InventoryMetrics, error) {
+	var metrics dto.InventoryMetrics
+
+	// 1. Stock Status
+	// Hitung stok yang sehat, stok rendah, dan stok habis
+	err := db.WithContext(ctx).Table("items").Select(`
+		COUNT(CASE WHEN quantity >= 50 THEN 1 END) AS healthy_stock,
+		COUNT(CASE WHEN quantity < 50 AND quantity > 0 THEN 1 END) AS low_stock,
+		COUNT(CASE WHEN quantity = 0 THEN 1 END) AS out_of_stock
+	`).Scan(&metrics.StockStatus).Error
+	if err != nil {
+		return metrics, err
+	}
+
+	// 2. Value Metrics
+	// Hitung kategori dengan nilai stok tertinggi dan terendah, serta nilai rata-rata item
+	var highestValue, lowestValue struct {
+		CategoryName string
+		TotalValue   float64
+	}
+	err = db.WithContext(ctx).Table("categories").
+		Select("categories.name AS category_name, COALESCE(SUM(items.price * items.quantity), 0) AS total_value").
+		Joins("LEFT JOIN items ON items.category_id = categories.id").
+		Group("categories.id").
+		Order("total_value DESC").
+		Limit(1).
+		Scan(&highestValue).Error
+	if err != nil {
+		return metrics, err
+	}
+	err = db.WithContext(ctx).Table("categories").
+		Select("categories.name AS category_name, COALESCE(SUM(items.price * items.quantity), 0) AS total_value").
+		Joins("LEFT JOIN items ON items.category_id = categories.id").
+		Group("categories.id").
+		Order("total_value ASC").
+		Limit(1).
+		Scan(&lowestValue).Error
+	if err != nil {
+		return metrics, err
+	}
+
+	metrics.ValueMetrics.HighestValueCategory = highestValue.CategoryName
+	metrics.ValueMetrics.LowestValueCategory = lowestValue.CategoryName
+
+	// Hitung nilai rata-rata item
+	err = db.WithContext(ctx).Table("items").Select("COALESCE(AVG(price), 0) AS average_item_value").Scan(&metrics.ValueMetrics.AverageItemValue).Error
+	if err != nil {
+		return metrics, err
+	}
+
+	// 3. Stock Distribution
+	// Hitung distribusi stok berdasarkan kategori
+	var categoryDistribution []struct {
+		CategoryName string
+		TotalItems   int
+	}
+	totalItems := 0
+	err = db.WithContext(ctx).Table("categories").
+		Select("categories.name AS category_name, COALESCE(SUM(items.quantity), 0) AS total_items").
+		Joins("LEFT JOIN items ON items.category_id = categories.id").
+		Group("categories.id").
+		Scan(&categoryDistribution).Error
+	if err != nil {
+		return metrics, err
+	}
+
+	// Hitung total keseluruhan item
+	for _, category := range categoryDistribution {
+		totalItems += category.TotalItems
+	}
+
+	// Buat distribusi per kategori dalam persen
+	metrics.StockDistribution.ByCategory = make(map[string]string)
+	for _, category := range categoryDistribution {
+		if totalItems > 0 {
+			percentage := float64(category.TotalItems) / float64(totalItems) * 100
+			metrics.StockDistribution.ByCategory[category.CategoryName] = fmt.Sprintf("%.2f%%", percentage)
+		} else {
+			metrics.StockDistribution.ByCategory[category.CategoryName] = "0%"
+		}
+	}
+
+	return metrics, nil
+}

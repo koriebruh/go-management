@@ -52,3 +52,10 @@ GET http://localhost:3000/api/items/condition?condition=equal&threshold=10
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4
+
+
+### FIND metric
+GET http://localhost:3000/api/items/metric
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE1ODIxOX0.g5MsR0P9hHIWVvLTAYnAK4zX3-VzEPkdojDqRN0InDA

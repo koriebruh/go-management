@@ -14,6 +14,7 @@ type ItemController interface {
 	FindAllByItem(ctx *fiber.Ctx) error
 	SummaryItem(ctx *fiber.Ctx) error
 	FindByCondition(ctx *fiber.Ctx) error
+	InventoryMetrics(ctx *fiber.Ctx) error
 }
 
 type ItemControllerImpl struct {
@@ -135,4 +136,21 @@ func (controller ItemControllerImpl) FindByCondition(ctx *fiber.Ctx) error {
 		Data:   valueCondition,
 	})
 
+}
+
+func (controller ItemControllerImpl) InventoryMetrics(ctx *fiber.Ctx) error {
+	metric, err := controller.ItemService.InventoryMetrics(ctx.Context())
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "Internal Server Error",
+			Data:   err.Error(),
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   metric,
+	})
 }
