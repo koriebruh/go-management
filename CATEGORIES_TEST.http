@@ -24,6 +24,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hb
 GET http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDk5NDc3M30.F5iHtbLTwDL0Uu2BV8nXo-N5eq0I_NhanMlPsRhXI78
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE0MDIyNn0.fKJOigj_zxjIarMuGLt6lWLMVafwGWj2VuQnilb4CsE
+
+
+###
+GET http://localhost:3000/api/categories/info
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE0MDIyNn0.fKJOigj_zxjIarMuGLt6lWLMVafwGWj2VuQnilb4CsE
 
 

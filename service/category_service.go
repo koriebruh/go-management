@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"errors"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
@@ -15,6 +16,7 @@ import (
 type CategoryService interface {
 	Create(ctx *fiber.Ctx, request dto.CategoryRequest) error
 	FindAllCategory(ctx *fiber.Ctx) ([]dto.CategoryResponse, error)
+	SummaryCategory(ctx context.Context) ([]dto.SummaryCategory, error)
 }
 
 type CategoryServiceImpl struct {
@@ -50,7 +52,7 @@ func (service CategoryServiceImpl) Create(ctx *fiber.Ctx, request dto.CategoryRe
 			CreatedBy:   uint(id),
 		}
 
-		err = service.CategoryRepository.Create(ctx, tx, &category)
+		err = service.CategoryRepository.Create(ctx.Context(), tx, &category)
 		if err != nil {
 			log.Print("Error di repository:", err)
 			return err
@@ -64,7 +66,7 @@ func (service CategoryServiceImpl) FindAllCategory(ctx *fiber.Ctx) ([]dto.Catego
 	var categories []domain.Category
 
 	err := service.DB.Transaction(func(tx *gorm.DB) error {
-		category, err := service.CategoryRepository.FindAllCategory(ctx, tx)
+		category, err := service.CategoryRepository.FindAllCategory(ctx.Context(), tx)
 		if err != nil {
 			return err
 		}
@@ -89,4 +91,26 @@ func (service CategoryServiceImpl) FindAllCategory(ctx *fiber.Ctx) ([]dto.Catego
 	}
 
 	return categoryResponses, nil
+}
+
+func (service CategoryServiceImpl) SummaryCategory(ctx context.Context) ([]dto.SummaryCategory, error) {
+
+	var summary []dto.SummaryCategory
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+		categorySum, err := service.CategoryRepository.SummaryCategory(ctx, tx)
+		if err != nil {
+			return err
+		}
+
+		summary = categorySum
+		return nil
+
+	})
+
+	if err != nil {
+		return summary, errors.New("error transactional")
+	}
+
+	return summary, nil
 }

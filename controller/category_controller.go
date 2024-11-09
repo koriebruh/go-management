@@ -10,6 +10,7 @@ import (
 type CategoryController interface {
 	Create(ctx *fiber.Ctx) error
 	FindAllByCategory(ctx *fiber.Ctx) error
+	SummaryCategory(ctx *fiber.Ctx) error
 }
 
 type CategoryControllerImpl struct {
@@ -67,4 +68,21 @@ func (controller CategoryControllerImpl) FindAllByCategory(ctx *fiber.Ctx) error
 		Data:   category,
 	})
 
+}
+
+func (controller CategoryControllerImpl) SummaryCategory(ctx *fiber.Ctx) error {
+	summary, err := controller.CategoryService.SummaryCategory(ctx.Context())
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "Internal Server Error",
+			Data:   err.Error(),
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   summary,
+	})
 }

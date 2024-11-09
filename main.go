@@ -37,6 +37,7 @@ func main() {
 
 	authorized.Get("api/categories", categoryController.FindAllByCategory)
 	authorized.Post("api/categories", categoryController.Create)
+	authorized.Get("api/categories/info", categoryController.SummaryCategory)
 
 	authorized.Get("api/items", itemController.FindAllByItem)
 	authorized.Post("api/items", itemController.CreateItem)
