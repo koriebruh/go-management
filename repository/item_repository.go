@@ -120,10 +120,10 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 	// 1. Stock Status
 	// Hitung stok yang sehat, stok rendah, dan stok habis
 	err := db.WithContext(ctx).Table("items").Select(`
-		COUNT(CASE WHEN quantity >= 50 THEN 1 END) AS healthy_stock,
-		COUNT(CASE WHEN quantity < 50 AND quantity > 0 THEN 1 END) AS low_stock,
-		COUNT(CASE WHEN quantity = 0 THEN 1 END) AS out_of_stock
-	`).Scan(&metrics.StockStatus).Error
+        COUNT(CASE WHEN quantity >= 50 THEN 1 END) AS healthy_stock,
+        COUNT(CASE WHEN quantity < 50 AND quantity > 0 THEN 1 END) AS low_stock,
+        COUNT(CASE WHEN quantity = 0 THEN 1 END) AS out_of_stock
+    `).Scan(&metrics.StockStatus).Error
 	if err != nil {
 		return metrics, err
 	}
@@ -134,6 +134,8 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 		CategoryName string
 		TotalValue   float64
 	}
+
+	// Query untuk highest value category dan total stock value
 	err = db.WithContext(ctx).Table("categories").
 		Select("categories.name AS category_name, COALESCE(SUM(items.price * items.quantity), 0) AS total_value").
 		Joins("LEFT JOIN items ON items.category_id = categories.id").
@@ -144,6 +146,8 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 	if err != nil {
 		return metrics, err
 	}
+
+	// Query untuk lowest value category
 	err = db.WithContext(ctx).Table("categories").
 		Select("categories.name AS category_name, COALESCE(SUM(items.price * items.quantity), 0) AS total_value").
 		Joins("LEFT JOIN items ON items.category_id = categories.id").
@@ -158,8 +162,26 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 	metrics.ValueMetrics.HighestValueCategory = highestValue.CategoryName
 	metrics.ValueMetrics.LowestValueCategory = lowestValue.CategoryName
 
+	// Hitung total stock value
+	err = db.WithContext(ctx).Table("items").
+		Select("COALESCE(SUM(price * quantity), 0) AS total_stock_value").
+		Scan(&metrics.ValueMetrics.TotalStockValue).Error
+	if err != nil {
+		return metrics, err
+	}
+
+	// Hitung total items
+	err = db.WithContext(ctx).Table("items").
+		Select("COALESCE(SUM(quantity), 0) AS total_items").
+		Scan(&metrics.ValueMetrics.TotalItems).Error
+	if err != nil {
+		return metrics, err
+	}
+
 	// Hitung nilai rata-rata item
-	err = db.WithContext(ctx).Table("items").Select("COALESCE(AVG(price), 0) AS average_item_value").Scan(&metrics.ValueMetrics.AverageItemValue).Error
+	err = db.WithContext(ctx).Table("items").
+		Select("COALESCE(AVG(price), 0) AS average_item_value").
+		Scan(&metrics.ValueMetrics.AverageItemValue).Error
 	if err != nil {
 		return metrics, err
 	}
@@ -170,7 +192,7 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 		CategoryName string
 		TotalItems   int
 	}
-	totalItems := 0
+
 	err = db.WithContext(ctx).Table("categories").
 		Select("categories.name AS category_name, COALESCE(SUM(items.quantity), 0) AS total_items").
 		Joins("LEFT JOIN items ON items.category_id = categories.id").
@@ -180,13 +202,25 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 		return metrics, err
 	}
 
-	// Hitung total keseluruhan item
-	for _, category := range categoryDistribution {
-		totalItems += category.TotalItems
+	// Hitung total categories
+	err = db.WithContext(ctx).Table("categories").
+		Select("COUNT(id) as total_categories").
+		Scan(&metrics.StockDistribution.TotalCategories).Error
+	if err != nil {
+		return metrics, err
+	}
+
+	// Hitung total suppliers
+	err = db.WithContext(ctx).Table("suppliers").
+		Select("COUNT(id) as total_suppliers").
+		Scan(&metrics.StockDistribution.TotalSuppliers).Error
+	if err != nil {
+		return metrics, err
 	}
 
 	// Buat distribusi per kategori dalam persen
 	metrics.StockDistribution.ByCategory = make(map[string]string)
+	totalItems := metrics.ValueMetrics.TotalItems
 	for _, category := range categoryDistribution {
 		if totalItems > 0 {
 			percentage := float64(category.TotalItems) / float64(totalItems) * 100
