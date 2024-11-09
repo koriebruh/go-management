@@ -16,6 +16,7 @@ type ItemRepository interface {
 	SummaryItem(ctx context.Context, db *gorm.DB) (dto.SummaryItem, error)
 	FindByCondition(ctx context.Context, db *gorm.DB, condition string, threshold int) ([]domain.Item, error)
 	InventoryMetrics(ctx context.Context, db *gorm.DB) (dto.InventoryMetrics, error)
+	ReportItemByCategory(ctx context.Context, db *gorm.DB, categoryName string) (dto.CategoryReport, error)
 }
 
 type ItemRepositoryImpl struct {
@@ -231,4 +232,36 @@ func (repo ItemRepositoryImpl) InventoryMetrics(ctx context.Context, db *gorm.DB
 	}
 
 	return metrics, nil
+}
+
+func (repo ItemRepositoryImpl) ReportItemByCategory(ctx context.Context, db *gorm.DB, categoryName string) (dto.CategoryReport, error) {
+	var category domain.Category
+	var items []domain.Item
+
+	if err := db.WithContext(ctx).Where("name = ?", categoryName).First(&category).Error; err != nil {
+		return dto.CategoryReport{Status: "Category not found"}, err
+	}
+
+	if err := db.WithContext(ctx).Where("category_id = ?", category.ID).Find(&items).Error; err != nil {
+		return dto.CategoryReport{Status: "Error fetching items"}, err
+	}
+
+	totalItems := len(items)
+	totalQuantity := 0
+	totalValue := 0.0
+	for _, item := range items {
+		totalQuantity += item.Quantity
+		totalValue += float64(item.Quantity) * item.Price
+	}
+
+	report := dto.CategoryReport{
+		Status: "Success",
+	}
+	report.Data.Category = category
+	report.Data.Items = items
+	report.Data.Summary.TotalItems = totalItems
+	report.Data.Summary.TotalQuantity = totalQuantity
+	report.Data.Summary.TotalValue = totalValue
+
+	return report, nil
 }

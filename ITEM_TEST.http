@@ -27,7 +27,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hb
 GET http://localhost:3000/api/items
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2MTA0Nn0.0gRwQtnNcQchZCNvLWhDf4X63MthYAR42wt90UIlP_Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2NTA5M30.jhrrm3NOMBEP-N6V2k7FV7-UZyG_hzRmZj5-mC6SeNE
 
 ### SUMARY
 GET http://localhost:3000/api/items/info
@@ -59,3 +59,9 @@ GET http://localhost:3000/api/items/metric
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2MjEzN30.ws50kGBdNA4dScpr84c93U84yw-7eFJTAVgu9Gune9o
+
+### FIND REPORT BY CATEGORY
+GET http://localhost:3000/api/items/category?category=Electronic
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2Nzc2OX0.cLlko9aVHodWAg3h0ErTKqfofkzR7uN8hDgrcuJXW-I

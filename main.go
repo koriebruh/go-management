@@ -44,6 +44,7 @@ func main() {
 	authorized.Get("api/items/info", itemController.SummaryItem)
 	authorized.Get("api/items/condition", itemController.FindByCondition)
 	authorized.Get("api/items/metric", itemController.InventoryMetrics)
+	authorized.Get("api/items/category", itemController.ReportItemByCategory)
 
 	err := app.Listen(cnf.GetConfig().Server.Port)
 	if err != nil {

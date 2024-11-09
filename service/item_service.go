@@ -18,6 +18,7 @@ type ItemService interface {
 	SummaryItem(ctx context.Context) (dto.SummaryItem, error)
 	FindByCondition(ctx context.Context, condition string, threshold int) ([]dto.ItemResponse, error)
 	InventoryMetrics(ctx context.Context) (dto.InventoryMetrics, error)
+	ReportItemByCategory(ctx context.Context, categoryName string) (dto.CategoryReportLimit, error)
 }
 
 type ItemServiceImpl struct {
@@ -185,4 +186,49 @@ func (service ItemServiceImpl) InventoryMetrics(ctx context.Context) (dto.Invent
 	}
 
 	return metric, nil
+}
+
+func (service ItemServiceImpl) ReportItemByCategory(ctx context.Context, categoryName string) (dto.CategoryReportLimit, error) {
+	var report dto.CategoryReportLimit
+	var categoryReport dto.CategoryReport
+
+	// Mulai transaksi
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+		// Ambil data laporan berdasarkan kategori
+		reports, err := service.ItemRepository.ReportItemByCategory(ctx, tx, categoryName)
+		if err != nil {
+			return err
+		}
+		log.Print("log bg", reports)
+
+		categoryReport = reports // Menyimpan data ke categoryReport
+		return nil
+	})
+
+	// Jika terjadi error pada transaksi
+	if err != nil {
+		return report, errors.New("error transactional item")
+	}
+
+	// Pemetaan data dari categoryReport ke categoryReportLimit
+	report = dto.CategoryReportLimit{
+		ByCategory:    categoryReport.Data.Category.Name,
+		Description:   categoryReport.Data.Category.Description,
+		TotalItem:     categoryReport.Data.Summary.TotalItems,
+		TotalQuantity: categoryReport.Data.Summary.TotalQuantity,
+		TotalValue:    categoryReport.Data.Summary.TotalValue,
+		Items:         make([]dto.ItemReport, 0), // Membuat slice kosong untuk Items
+	}
+
+	// Pemetaan item-item dari categoryReport ke report.Items
+	for _, item := range categoryReport.Data.Items {
+		report.Items = append(report.Items, dto.ItemReport{
+			Name:       item.Name,
+			Quantity:   item.Quantity,
+			SupplierID: item.SupplierID,
+		})
+	}
+
+	// Kembalikan report yang sudah terisi
+	return report, nil
 }

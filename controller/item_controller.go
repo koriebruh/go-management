@@ -15,6 +15,7 @@ type ItemController interface {
 	SummaryItem(ctx *fiber.Ctx) error
 	FindByCondition(ctx *fiber.Ctx) error
 	InventoryMetrics(ctx *fiber.Ctx) error
+	ReportItemByCategory(ctx *fiber.Ctx) error
 }
 
 type ItemControllerImpl struct {
@@ -152,5 +153,25 @@ func (controller ItemControllerImpl) InventoryMetrics(ctx *fiber.Ctx) error {
 		Code:   http.StatusOK,
 		Status: "OK",
 		Data:   metric,
+	})
+}
+
+func (controller ItemControllerImpl) ReportItemByCategory(ctx *fiber.Ctx) error {
+
+	condition := ctx.Query("category")
+
+	report, err := controller.ItemService.ReportItemByCategory(ctx.Context(), condition)
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "Internal Server Error",
+			Data:   err.Error(),
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   report,
 	})
 }
