@@ -1,7 +1,10 @@
-GET http://localhost:3000
+###
+GET http://localhost:3000/hi
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer
 
-
-### GET request to example server
+###
 POST http://localhost:3000/api/auth/register
 Accept: application/json
 Content-Type: application/json
@@ -21,13 +24,6 @@ Content-Type: application/json
   "username": "jamal",
   "password": "jamal123"
 }
-
-###
-GET http://localhost:3000/hi
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyNDUwN30.5XoKUATZa9rXaV-4wlD4ns5-jaF7cI7u0Yqu6qdtn9I
-
 
 ###
 GET http://localhost:3000/api/admins
