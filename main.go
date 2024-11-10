@@ -25,6 +25,10 @@ func main() {
 	itemService := service.NewItemService(itemRepository, db)
 	itemController := controller.NewItemController(itemService)
 
+	supplierRepository := repository.NewSupplierRepository()
+	supplierService := service.NewSupplierService(db, supplierRepository)
+	supplierController := controller.NewSupplierController(supplierService)
+
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{}))
 
@@ -46,6 +50,10 @@ func main() {
 	authorized.Get("api/items/condition", itemController.FindByCondition)
 	authorized.Get("api/items/metric", itemController.InventoryMetrics)
 	authorized.Get("api/items/category", itemController.ReportItemByCategory)
+
+	authorized.Post("api/suppliers", supplierController.Create)
+	authorized.Get("api/suppliers", supplierController.FindAllSupplier)
+	authorized.Get("api/suppliers/info", supplierController.SummarySupplier)
 
 	err := app.Listen(cnf.GetConfig().Server.Port)
 	if err != nil {

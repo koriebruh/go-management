@@ -1,0 +1,35 @@
+###
+POST http://localhost:3000/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "jamal",
+  "password": "jamal123"
+}
+
+###
+POST http://localhost:3000/api/suppliers
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyODkxNX0.SdDjwFjz8hkprfk0_X8LMqANWvGYbwKNlfo6Wl8cfTs
+
+{
+  "name": "Windows",
+  "contact_info": "2813412"
+}
+
+
+
+###
+GET http://localhost:3000/api/suppliers
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyODkxNX0.SdDjwFjz8hkprfk0_X8LMqANWvGYbwKNlfo6Wl8cfTs
+
+
+###
+GET http://localhost:3000/api/suppliers/info
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyODkxNX0.SdDjwFjz8hkprfk0_X8LMqANWvGYbwKNlfo6Wl8cfTs
