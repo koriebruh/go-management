@@ -4,19 +4,19 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "jamal",
-  "password": "jamal123"
+  "username": "fatlem",
+  "password": "fatlem224"
 }
 
 ###
 POST http://localhost:3000/api/suppliers
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyODkxNX0.SdDjwFjz8hkprfk0_X8LMqANWvGYbwKNlfo6Wl8cfTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTQwOTN9.t07EmByH6dxQVqzCoZmEerH4tmhaWGIH9R91ELHg6rY
 
 {
-  "name": "Windows",
-  "contact_info": "2813412"
+  "name": "ROG",
+  "contact_info": "088385"
 }
 
 
@@ -25,11 +25,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hb
 GET http://localhost:3000/api/suppliers
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyODkxNX0.SdDjwFjz8hkprfk0_X8LMqANWvGYbwKNlfo6Wl8cfTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTQwOTN9.t07EmByH6dxQVqzCoZmEerH4tmhaWGIH9R91ELHg6rY
 
 
 ###
 GET http://localhost:3000/api/suppliers/info
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyODkxNX0.SdDjwFjz8hkprfk0_X8LMqANWvGYbwKNlfo6Wl8cfTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTQwOTN9.t07EmByH6dxQVqzCoZmEerH4tmhaWGIH9R91ELHg6rY

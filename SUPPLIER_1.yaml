@@ -1,0 +1,164 @@
+openapi: 3.0.1
+info:
+  title: API Auth dan Suppliers
+  description: API untuk login, membuat supplier, dan mendapatkan data supplier
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/auth/login:
+    post:
+      summary: Login ke aplikasi
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: fatlem
+                password:
+                  type: string
+                  example: fatlem224
+      responses:
+        '200':
+          description: Login berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Login Success
+                      token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '500':
+          description: Login gagal
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 500
+                  status:
+                    type: string
+                    example: Internal Server Error
+                  data:
+                    type: string
+                    example:
+                     login failed: incorrect password
+
+  /api/suppliers:
+    post:
+      summary: Membuat supplier baru
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: ROG
+                contact_info:
+                  type: string
+                  example: 088385
+      responses:
+        '201':
+          description: Supplier berhasil dibuat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 201
+                  status:
+                    type: string
+                    example: Created
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: success created new supplier
+
+    get:
+      summary: Mendapatkan daftar supplier
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Daftar supplier berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: ROG
+                        contact_info:
+                          type: string
+                          example: 088385
+
+  /api/suppliers/info:
+    get:
+      summary: Mendapatkan informasi detail supplier
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Informasi detail supplier berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    nullable: true
+                    example: null
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

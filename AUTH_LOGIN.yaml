@@ -1,0 +1,105 @@
+openapi: 3.0.1
+info:
+  title: API Auth dan Admin
+  description: API untuk registrasi admin dan pengambilan data admin
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/auth/register:
+    post:
+      summary: Mendaftarkan admin baru
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: fatlem
+                password:
+                  type: string
+                  example: fatlem224
+                email:
+                  type: string
+                  example: fatlem@example.com
+      responses:
+        '200':
+          description: Registrasi berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: success created new admin
+        '500':
+          description: Gagal registrasi
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 500
+                  status:
+                    type: string
+                    example: Internal Server Error
+                  data:
+                    type: string
+                    example: email already registered
+
+  /api/admins:
+    get:
+      summary: Mendapatkan daftar admin
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Daftar admin berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                          example: fatlem
+                        email:
+                          type: string
+                          example: fatlem@example.com
+                        createdAt:
+                          type: string
+                          format: date-time
+                          example: 2024-11-10T14:11:41.466Z
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
