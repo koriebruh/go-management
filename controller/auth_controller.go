@@ -14,6 +14,7 @@ type AuthController interface {
 	Register(ctx *fiber.Ctx) error
 	Login(ctx *fiber.Ctx) error
 	Logout(ctx *fiber.Ctx) error
+	FindAllAdmin(ctx *fiber.Ctx) error
 }
 
 type AuthControllerImpl struct {
@@ -128,5 +129,22 @@ func (controller AuthControllerImpl) Logout(ctx *fiber.Ctx) error {
 		Data: map[string]string{
 			"message": "LogOut Success",
 		},
+	})
+}
+
+func (controller AuthControllerImpl) FindAllAdmin(ctx *fiber.Ctx) error {
+	admins, err := controller.AuthService.FindAllAdmin(ctx.Context())
+	if err != nil {
+		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
+			Code:   http.StatusInternalServerError,
+			Status: "StatusInternalServerError",
+			Data:   nil,
+		})
+	}
+
+	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
+		Code:   http.StatusOK,
+		Status: "OK",
+		Data:   admins,
 	})
 }

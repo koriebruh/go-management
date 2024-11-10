@@ -4,9 +4,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "korie",
-  "password": "korie123",
-  "email": "koriebruh@example.com"
+  "username": "jamal",
+  "password": "jamal123",
+  "email": "jamal@example.com"
 }
 
 ###
@@ -15,16 +15,22 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "korie",
-  "password": "korie123"
+  "username": "jamal",
+  "password": "jamal123"
 }
 
 ###
 GET http://localhost:3000/hi
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMDkxNDQyNH0.y4GXqDVkx4PSgzVssW3ifOGwFvmw1pG7O84_MPo3aIw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyNDUwN30.5XoKUATZa9rXaV-4wlD4ns5-jaF7cI7u0Yqu6qdtn9I
 
+
+###
+GET http://localhost:3000/api/admins
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyNDUwN30.5XoKUATZa9rXaV-4wlD4ns5-jaF7cI7u0Yqu6qdtn9I
 
 ###
 POST http://localhost:3000//api/auth/logout

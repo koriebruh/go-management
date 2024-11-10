@@ -33,6 +33,7 @@ func main() {
 	app.Post("/api/auth/logout", authController.Logout)
 
 	authorized := app.Group("/", cnf.JWTAuthMiddleware)
+	authorized.Get("/api/admins", authController.FindAllAdmin)
 	authorized.Get("/hi", hellobg)
 
 	authorized.Get("api/categories", categoryController.FindAllByCategory)

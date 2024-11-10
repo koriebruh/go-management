@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
@@ -12,6 +13,7 @@ import (
 type AuthService interface {
 	Register(ctx *fiber.Ctx, request dto.RegisterRequest) error
 	Login(ctx *fiber.Ctx, request dto.LoginRequest) (uint, error)
+	FindAllAdmin(ctx context.Context) ([]dto.AdminsResponse, error)
 }
 
 type AuthServiceImpl struct {
@@ -70,4 +72,35 @@ func (service AuthServiceImpl) Login(ctx *fiber.Ctx, request dto.LoginRequest) (
 
 	return adminId, nil
 
+}
+
+func (service AuthServiceImpl) FindAllAdmin(ctx context.Context) ([]dto.AdminsResponse, error) {
+	var admins []domain.Admin          // ini untuk tangkap hasil db
+	var adminList []dto.AdminsResponse // ini dto
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
+
+		admin, err := service.AuthRepository.FindAllAdmin(ctx, tx)
+		if err != nil {
+			return err
+		}
+
+		admins = admin
+		return nil
+	})
+
+	if err != nil {
+		return adminList, nil
+	}
+
+	for _, admin := range admins {
+		adminLimit := dto.AdminsResponse{
+			Username:  admin.Username,
+			Email:     admin.Email,
+			CreatedAt: admin.CreatedAt,
+		}
+		adminList = append(adminList, adminLimit)
+	}
+
+	return adminList, nil
 }

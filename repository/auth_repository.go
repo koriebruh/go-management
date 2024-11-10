@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
@@ -11,8 +12,8 @@ import (
 
 type AuthRepository interface {
 	Register(ctx *fiber.Ctx, db *gorm.DB, admin domain.Admin) error
-
 	Login(ctx *fiber.Ctx, db *gorm.DB, admin domain.Admin) (uint, error) //catch id for save in cooke with jwt
+	FindAllAdmin(ctx context.Context, db *gorm.DB) ([]domain.Admin, error)
 }
 
 type AuthRepositoryImpl struct {
@@ -64,4 +65,15 @@ func (repo AuthRepositoryImpl) Login(ctx *fiber.Ctx, db *gorm.DB, admin domain.A
 
 	// Return user id untuk JWT
 	return userLogin.ID, nil
+}
+
+func (repo AuthRepositoryImpl) FindAllAdmin(ctx context.Context, db *gorm.DB) ([]domain.Admin, error) {
+	var AllAdmin []domain.Admin
+
+	tx := db.WithContext(ctx).Find(&AllAdmin)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	return AllAdmin, nil
 }
