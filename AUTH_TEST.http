@@ -1,3 +1,6 @@
+GET http://localhost:3000
+
+
 ### GET request to example server
 POST http://localhost:3000/api/auth/register
 Accept: application/json

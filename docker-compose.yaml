@@ -1,0 +1,29 @@
+
+services:
+  go_management:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    #wait for mySql ready bg
+    depends_on:
+      - mysql-management
+
+  mysql-management:
+    container_name: mysql-management
+    image: mysql:8.0.39
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: 'go_management'
+      MYSQL_USER: 'korie'
+      MYSQL_PASSWORD: 'korie123'
+      MYSQL_ROOT_PASSWORD: 'korie123'
+    volumes:
+      - mysql-management:/var/lib/mysql
+
+volumes:
+  mysql-management:

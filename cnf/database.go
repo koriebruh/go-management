@@ -7,6 +7,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"koriebruh/management/domain"
+	"log"
+	"time"
 )
 
 func InitDB() *gorm.DB {
@@ -19,13 +21,25 @@ func InitDB() *gorm.DB {
 		config.DataBase.Name,
 	)
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Info),
-	})
-	if err != nil {
-		panic(errors.New("Failed Connected into database"))
+	var db *gorm.DB
+	var err error
+
+	for i := 0; i < 5; i++ { // Coba ulang hingga 5 kali
+		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info),
+		})
+		if err == nil {
+			log.Println("Berhasil terhubung ke database.")
+			break
+		}
+
+		log.Printf("Percobaan %d: Gagal menghubungkan ke database. Coba lagi dalam 5 detik...\n", i+1)
+		time.Sleep(5 * time.Second)
 	}
 
+	if err != nil {
+		panic(errors.New("gagal terhubung ke database"))
+	}
 	// Auto Migrate
 	err = db.AutoMigrate(
 		&domain.Admin{},
