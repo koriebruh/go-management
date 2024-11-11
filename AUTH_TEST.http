@@ -1,8 +1,8 @@
+
 ###
 GET http://localhost:3000/hi
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer
 
 ###
 POST http://localhost:3000/api/auth/register
@@ -10,9 +10,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "jamal",
-  "password": "jamal123",
-  "email": "jamal@example.com"
+  "username": "fatlem",
+  "password": "fatlem224",
+  "email": "fatlem@example.com"
 }
 
 ###
@@ -21,15 +21,16 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "jamal",
-  "password": "jamal123"
+  "username": "fatlem",
+  "password": "fatlem224"
 }
+
 
 ###
 GET http://localhost:3000/api/admins
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiVXNlck5hbWUiOiJqYW1hbCIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTIyNDUwN30.5XoKUATZa9rXaV-4wlD4ns5-jaF7cI7u0Yqu6qdtn9I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTE4MDh9.m8Vvsnz2ylbnYhB10I59Bv6udGgo5yHlkppF4R-veoA
 
 ###
 POST http://localhost:3000//api/auth/logout
