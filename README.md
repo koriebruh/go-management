@@ -14,7 +14,7 @@
 
 ---
 
-## 🛠️ Konfigurasi Awal, default run int port :3000
+## 🛠️ Konfigurasi Awal, `default run int port :3000`
 
 1. **Clone repository:**
    ```bash
@@ -341,7 +341,6 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
    ```
 - **Deskripsi**: Menampilkan metrik terkait inventaris item. Menyediakan informasi tentang stok, nilai rata-rata item, distribusi stok, dan lainnya.
 
-
 ### 10. 📊 Laporan items
 Endpoint ini digunakan untuk menampilkan laporan item 
 
@@ -363,8 +362,6 @@ Endpoint ini digunakan untuk menampilkan laporan item
    }
    ```
 - **Deskripsi**: Memberikan laporan item yang terperinci berdasarkan total item, total value dll.
-
---- 
 
 ### 11. 📊 Laporan Categories
 Endpoint ini digunakan untuk menampilkan laporan categories
@@ -403,8 +400,6 @@ Endpoint ini digunakan untuk menampilkan laporan categories
    ```
 - **Deskripsi**: Memberikan laporan dari setiap category beserta detail nya.
 
---- 
-
 ### 11. 📊 Laporan supplier
 Endpoint ini digunakan untuk menampilkan laporan supplier 
 
@@ -436,5 +431,3 @@ Endpoint ini digunakan untuk menampilkan laporan supplier
 ## 🧪 Menjalankan Uji Coba Endpoint
 
 Gunakan `AUTH_TEST.http`, `CATEGORIES_TEST.http`, `ITEM_TEST.http`,`SUPPLIER_TEST.http`, yg tersedia didalam source code atau alat HTTP client seperti Postman untuk menguji endpoint secara lokal.
-
----
