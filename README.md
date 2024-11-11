@@ -22,28 +22,13 @@
    cd go-management
    ```
 
-2. **Install dependencies:**
-   ```bash
-   go mod download
-   ```
-
-3. **Sesuaikan konfigurasi** di file `.env` sesuai kebutuhan Anda.
-
----
-
-## 🚀 Menjalankan Aplikasi
-
-1. **Jalankan Database**  
+2. **Jalankan Database**  
    Jalankan perintah berikut untuk menjalankan database melalui Docker:
    ```bash
    docker-compose up -d
    ```
 
-2. **Menjalankan Aplikasi Go**  
-   Untuk menjalankan aplikasi Go:
-   ```bash
-   go run main.go
-   ```
+3. **Sesuaikan konfigurasi** di file `.env` sesuai kebutuhan Anda.
 
 ---
 
@@ -185,12 +170,6 @@ Endpoint ini digunakan untuk melakukan registrasi user baru.
      "email": "user1@gmail.com"
    }
    ```
-- **Kode Implementasi**:
-   ```go
-   func Register(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk register user
-   }
-   ```
 
 ### 2. 🔑 Login
 Endpoint ini digunakan untuk melakukan login.
@@ -204,23 +183,13 @@ Endpoint ini digunakan untuk melakukan login.
      "password": "password123"
    }
    ```
-- **Kode Implementasi**:
-   ```go
-   func Login(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk login user
-   }
-   ```
 
 ### 3. 🚪 Logout
 Endpoint ini digunakan untuk logout user.
 
 - **Endpoint**: `/auth/logout`
 - **Metode**: `POST`
-- **Kode Implementasi**:
-   ```go
-   func Logout(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk logout user
-   }
+  
    ```
 
 ### 4. ➕ Menambah Supplier
@@ -235,12 +204,6 @@ Endpoint ini digunakan untuk menambah data supplier baru.
      "contact": "supplierA@example.com"
    }
    ```
-- **Kode Implementasi**:
-   ```go
-   func AddSupplier(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menambah supplier baru
-   }
-   ```
 
 ### 5. 🏷️ Menambah Kategori
 Endpoint ini digunakan untuk menambah kategori baru.
@@ -252,12 +215,6 @@ Endpoint ini digunakan untuk menambah kategori baru.
    {
      "name": "Elektronik",
      "description": "Laptop Gaming"
-   }
-   ```
-- **Kode Implementasi**:
-   ```go
-   func AddCategory(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menambah kategori baru
    }
    ```
 
@@ -275,12 +232,6 @@ Endpoint ini digunakan untuk menambah item baru.
      "quantity": 2,
      "category_id": 1,
      "supplier_id": 1
-   }
-   ```
-- **Kode Implementasi**:
-   ```go
-   func AddItem(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menambah item baru
    }
    ```
 
@@ -301,11 +252,7 @@ Endpoint ini digunakan untuk menampilkan daftar supplier.
 
 - **Endpoint**: `/suppliers`
 - **Metode**: `GET`
-- **Kode Implementasi**:
-   ```go
-   func GetSuppliers(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menampilkan supplier
-   }
+  
    ```
 
 ### 9. 📊 Menambah Kategori Baru
@@ -320,12 +267,6 @@ Endpoint ini digunakan untuk menambah kategori baru.
      "description": "Modern office chairs"
    }
    ```
-- **Kode Implementasi**:
-   ```go
-   func AddCategory(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menambah kategori baru
-   }
-   ```
 
 ### 10. 🔍 Cari Item Berdasarkan Kondisi
 Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
@@ -333,11 +274,7 @@ Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 - **Endpoint**: `/items/condition`
 - **Metode**: `GET`
 - **Deskripsi**: Menampilkan item berdasarkan kondisi tertentu seperti harga, kuantitas, dll.
-- **Kode Implementasi**:
-   ```go
-   func SearchItemsByCondition(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk mencari item berdasarkan kondisi
-   }
+
    ```
 
 ### 11. 📈 Laporan Item Berdasarkan Kategori
@@ -346,11 +283,7 @@ Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori terte
 - **Endpoint**: `/items/category`
 - **Metode**: `GET`
 - **Deskripsi**: Menampilkan laporan item berdasarkan kategori.
-- **Kode Implementasi**:
-   ```go
-   func GetItemReportByCategory(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menampilkan laporan item berdasarkan kategori
-   }
+
    ```
 
 ### 12. 💾 Metrik Inventaris Item
@@ -359,11 +292,7 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 - **Endpoint**: `/items/metric`
 - **Metode**: `GET`
 - **Deskripsi**: Menampilkan metrik inventaris item seperti stok, penjualan, dll.
-- **Kode Implementasi**:
-   ```go
-   func GetItemInventoryMetrics(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menampilkan metrik inventaris item
-   }
+
    ```
 
 ### 13. 🧑‍💼 Daftar Admin
@@ -372,11 +301,7 @@ Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
 - **Endpoint**: `/admins`
 - **Metode**: `GET`
 - **Deskripsi**: Menampilkan daftar admin.
-- **Kode Implementasi**:
-   ```go
-   func GetAdmins(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menampilkan daftar admin
-   }
+
    ```
 
 ### 14. 🏅 Hello (Autentikasi)
@@ -385,12 +310,6 @@ Endpoint ini digunakan untuk menampilkan pesan sambutan untuk pengguna yang suda
 - **Endpoint**: `/hi`
 - **Metode**: `GET`
 - **Deskripsi**: Menampilkan pesan sambutan untuk pengguna yang sudah login.
-- **Kode Implementasi**:
-   ```go
-   func HelloAuthenticated(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menampilkan pesan sambutan bagi pengguna terautentikasi
-   }
-   ```
 
 --- 
 
