@@ -170,7 +170,8 @@ Endpoint ini digunakan untuk melakukan registrasi user baru.
      "email": "user1@gmail.com"
    }
    ```
-
+- **Deskripsi**: Melakukan registrasi user baru. Pengguna dapat mendaftar dengan menyediakan username, password, dan email untuk membuat akun baru.
+  
 ### 2. 🔑 Login
 Endpoint ini digunakan untuk melakukan login.
 
@@ -183,7 +184,8 @@ Endpoint ini digunakan untuk melakukan login.
      "password": "password123"
    }
    ```
-
+- **Deskripsi**: Login ke aplikasi menggunakan username dan password yang sudah terdaftar. Mengembalikan token yang dapat digunakan untuk akses lebih lanjut.
+  
 ### 3. 🚪 Logout
 Endpoint ini digunakan untuk logout user.
 
@@ -199,7 +201,8 @@ Endpoint ini digunakan untuk logout user.
       }
    }
    ```
-
+- **Deskripsi**: Melakukan logout dari aplikasi. Menghapus session atau token yang digunakan oleh pengguna saat ini.
+  
 ### 4. ➕ Menambah Supplier
 Endpoint ini digunakan untuk menambah data supplier baru.
 
@@ -212,7 +215,8 @@ Endpoint ini digunakan untuk menambah data supplier baru.
      "contact": "supplierA@example.com"
    }
    ```
-
+- **Deskripsi**: Menambah data supplier baru ke dalam sistem. Pengguna dapat memberikan nama dan kontak supplier.
+  
 ### 5. 🏷️ Menambah Kategori
 Endpoint ini digunakan untuk menambah kategori baru.
 
@@ -225,7 +229,8 @@ Endpoint ini digunakan untuk menambah kategori baru.
      "description": "Laptop Gaming"
    }
    ```
-
+- **Deskripsi**: Menambah kategori baru untuk item. Pengguna dapat menambahkan nama kategori dan deskripsi terkait.
+  
 ### 6. 📦 Menambah Item
 Endpoint ini digunakan untuk menambah item baru.
 
@@ -242,7 +247,8 @@ Endpoint ini digunakan untuk menambah item baru.
      "supplier_id": 1
    }
    ```
-
+- **Deskripsi**: Menambah item baru dengan informasi seperti nama, deskripsi, harga, kuantitas, kategori, dan supplier.
+  
 ### 7. 🏷️ Daftar Kategori
 Endpoint ini digunakan untuk menampilkan daftar kategori.
 
@@ -269,7 +275,8 @@ Endpoint ini digunakan untuk menampilkan daftar kategori.
      ]
    }
    ```
-
+- **Deskripsi**: Menampilkan daftar kategori yang sudah ada. Menampilkan ID dan nama kategori yang terdaftar dalam sistem.
+  
 ### 8. 🛒 Daftar Supplier
 Endpoint ini digunakan untuk menampilkan daftar supplier.
 
@@ -285,7 +292,8 @@ Endpoint ini digunakan untuk menampilkan daftar supplier.
      }
    }
    ```  
-
+- **Deskripsi**: Menampilkan daftar supplier yang sudah terdaftar dalam sistem. Menampilkan informasi supplier yang ada.
+  
 ### 9. 📊 Menambah Kategori Baru
 Endpoint ini digunakan untuk menambah kategori baru.
 
@@ -298,6 +306,7 @@ Endpoint ini digunakan untuk menambah kategori baru.
      "description": "Modern office chairs"
    }
    ```
+ - **Deskripsi**: Menambah kategori baru ke dalam sistem. Pengguna dapat menambahkan kategori seperti furniture atau kategori lainnya.
 
 ### 10. 🔍 Cari Item Berdasarkan Kondisi
 Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
@@ -325,7 +334,7 @@ Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
      ]
    }
    ```
-- **Deskripsi**: Menampilkan item berdasarkan kondisi tertentu seperti harga, kuantitas, dll.
+- **Deskripsi**: Mencari item berdasarkan kondisi tertentu, seperti harga atau kuantitas. Membantu menemukan item yang sesuai dengan kriteria yang diinginkan.
 
 
 ### 11. 📈 Laporan Item Berdasarkan Kategori
@@ -354,7 +363,7 @@ Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori terte
      ]
    }
    ```
-- **Deskripsi**: Menampilkan laporan item berdasarkan kategori.
+- **Deskripsi**: Menampilkan laporan mengenai item berdasarkan kategori tertentu. Memudahkan untuk melihat semua item yang ada dalam kategori tersebut.
 
 
 ### 12. 💾 Metrik Inventaris Item
@@ -390,7 +399,7 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
      }
    }
    ```
-- **Deskripsi**: Menampilkan metrik inventaris item seperti stok, penjualan, dll.
+- **Deskripsi**: Menampilkan metrik terkait inventaris item. Menyediakan informasi tentang stok, nilai rata-rata item, distribusi stok, dan lainnya.
 
 
 ### 13. 🧑‍💼 Daftar Admin
@@ -412,7 +421,7 @@ Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
      ]
    }   
    ```
-- **Deskripsi**: Menampilkan daftar admin.
+- **Deskripsi**: Menampilkan daftar admin yang terdaftar dalam sistem. Menampilkan informasi admin yang memiliki hak akses ke aplikasi.
 
 
 ### 14. 📊 Laporan Penjualan Berdasarkan Supplier
@@ -438,7 +447,7 @@ Endpoint ini digunakan untuk menampilkan laporan penjualan berdasarkan supplier 
      ]
    }
    ```
-- **Deskripsi**: Endpoint ini memberikan laporan penjualan yang terperinci berdasarkan supplier, termasuk total penjualan, jumlah produk terjual, dan kategori produk yang terkait.
+- **Deskripsi**: Memberikan laporan penjualan yang terperinci berdasarkan supplier, termasuk total penjualan, jumlah produk terjual, dan kategori produk yang terkait.
 
 --- 
 
