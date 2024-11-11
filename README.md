@@ -248,14 +248,25 @@ Endpoint ini digunakan untuk menampilkan daftar kategori.
 
 - **Endpoint**: `/categories`
 - **Metode**: `GET`
-- **Request**:
+- **Resonse**:
    ```json
    {
-     "code": 201,
-     "status": "Created",
-     "data": {
-       "message": "success created new category"
-     }
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "id": 1,
+         "name": "Elektronik"
+       },
+       {
+         "id": 2,
+         "name": "Makanan"
+       },
+       {
+         "id": 3,
+         "name": "Kecantikan"
+       }
+     ]
    }
    ```
 
@@ -264,7 +275,7 @@ Endpoint ini digunakan untuk menampilkan daftar supplier.
 
 - **Endpoint**: `/suppliers`
 - **Metode**: `GET`
-- **Request**:
+- **Resonse**:
    ```json
    {
      "code": 201,
@@ -280,7 +291,7 @@ Endpoint ini digunakan untuk menambah kategori baru.
 
 - **Endpoint**: `/categories`
 - **Metode**: `POST`
-- **Request**:
+- **Resonse**:
    ```json
    {
      "name": "Furniture",
@@ -293,7 +304,7 @@ Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 
 - **Endpoint**: `/items/condition`
 - **Metode**: `GET`
-- **Request**:
+- **Resonse**:
    ```json
    {
      "code": 200,
@@ -322,12 +333,25 @@ Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori terte
 
 - **Endpoint**: `/items/category`
 - **Metode**: `GET`
-- **Request**:
+- **Resonse**:
    ```json
    {
-     "code": 500,
-     "status": "Internal Server Error",
-     "data": "error transactional item"
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "id": 6,
+         "name": "Asus Rog G15 G513RM",
+         "description": "Republik Of Gammer",
+         "price": 22000000,
+         "quantity": 2,
+         "category": "Elektronik",
+         "supplier": "ROG",
+         "created_by": "fatlem",
+         "created_at": "2024-11-10T15:18:54.041Z",
+         "updated_at": "2024-11-10T15:18:54.041Z"
+       }
+     ]
    }
    ```
 - **Deskripsi**: Menampilkan laporan item berdasarkan kategori.
@@ -338,7 +362,7 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 
 - **Endpoint**: `/items/metric`
 - **Metode**: `GET`
-- **Request**:
+- **Resonse**:
    ```json
    {
      "code": 200,
@@ -374,7 +398,7 @@ Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
 
 - **Endpoint**: `/admins`
 - **Metode**: `GET`
-- **Request**:
+- **Resonse**:
    ```json
    {
      "code": 200,
@@ -391,12 +415,30 @@ Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
 - **Deskripsi**: Menampilkan daftar admin.
 
 
-### 14. 🏅 Hello (Autentikasi)
-Endpoint ini digunakan untuk menampilkan pesan sambutan untuk pengguna yang sudah terautentikasi.
+### 14. 📊 Laporan Penjualan Berdasarkan Supplier
+Endpoint ini digunakan untuk menampilkan laporan penjualan berdasarkan supplier tertentu.
 
-- **Endpoint**: `/hi`
+- **Endpoint**: `/sales/supplier`
 - **Metode**: `GET`
-- **Deskripsi**: Menampilkan pesan sambutan untuk pengguna yang sudah login.
+- **Resonse**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "supplier_name": "ROG",
+         "total_sales": 44000000,
+         "total_items_sold": 2,
+         "category_sales": {
+           "Elektronik": 44000000
+         },
+         "created_at": "2024-11-10T15:18:54.041Z"
+       }
+     ]
+   }
+   ```
+- **Deskripsi**: Endpoint ini memberikan laporan penjualan yang terperinci berdasarkan supplier, termasuk total penjualan, jumlah produk terjual, dan kategori produk yang terkait.
 
 --- 
 
