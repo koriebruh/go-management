@@ -14,7 +14,7 @@
 
 ---
 
-## 🛠️ Konfigurasi Awal
+## 🛠️ Konfigurasi Awal, default run int port :3000
 
 1. **Clone repository:**
    ```bash
@@ -343,7 +343,7 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 
 
 ### 10. 📊 Laporan items
-Endpoint ini digunakan untuk menampilkan laporan penjualan berdasarkan supplier tertentu.
+Endpoint ini digunakan untuk menampilkan laporan item 
 
 - **Endpoint**: `/api/items/info`
 - **Metode**: `GET`
@@ -362,12 +362,79 @@ Endpoint ini digunakan untuk menampilkan laporan penjualan berdasarkan supplier 
      }
    }
    ```
-- **Deskripsi**: Memberikan laporan penjualan yang terperinci berdasarkan supplier, termasuk total penjualan, jumlah produk terjual, dan kategori produk yang terkait.
+- **Deskripsi**: Memberikan laporan item yang terperinci berdasarkan total item, total value dll.
+
+--- 
+
+### 11. 📊 Laporan Categories
+Endpoint ini digunakan untuk menampilkan laporan categories
+
+- **Endpoint**: `api/categories/info`
+- **Metode**: `GET`
+- **Resonse**:
+   ```json
+  {
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "category_id": 1,
+         "category_name": "Comsetic",
+         "item_count": 1,
+         "total_stock_value": 96000000,
+         "average_item_price": 32000000
+       },
+       {
+         "category_id": 2,
+         "category_name": "Electronic",
+         "item_count": 1,
+         "total_stock_value": 96000000,
+         "average_item_price": 32000000
+       },
+       {
+         "category_id": 3,
+         "category_name": "Glass",
+         "item_count": 0,
+         "total_stock_value": 0,
+         "average_item_price": 0
+       }
+     ]
+   }
+   ```
+- **Deskripsi**: Memberikan laporan dari setiap category beserta detail nya.
+
+--- 
+
+### 11. 📊 Laporan supplier
+Endpoint ini digunakan untuk menampilkan laporan supplier 
+
+- **Endpoint**: `/api/supplier/info`
+- **Metode**: `GET`
+- **Resonse**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "supplier_name": "Windows",
+         "total_items": 2,
+         "total_value": 192000000
+       },
+       {
+         "supplier_name": "PT PELITA HARAPAN",
+         "total_items": 1,
+         "total_value": 44000000
+       }
+     ]
+   }
+   ```
+- **Deskripsi**: Memberikan laporan dari masing masing supplier.
 
 --- 
 
 ## 🧪 Menjalankan Uji Coba Endpoint
 
-Gunakan `AUTH_TEST.http`, `CATEGORIES_TEST.http`, `ITEM_TEST.http`, atau alat HTTP client seperti Postman untuk menguji endpoint secara lokal.
+Gunakan `AUTH_TEST.http`, `CATEGORIES_TEST.http`, `ITEM_TEST.http`,`SUPPLIER_TEST.http`, yg tersedia didalam source code atau alat HTTP client seperti Postman untuk menguji endpoint secara lokal.
 
 ---
