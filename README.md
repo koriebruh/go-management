@@ -168,10 +168,6 @@
 
 ---
 
-Berikut adalah pembaruan untuk bagian **API Endpoint** yang mencakup 14 endpoint dengan contoh kode:
-
----
-
 ## 🔌 API Endpoint
 
 Berikut adalah beberapa endpoint utama untuk melakukan operasi register, login, logout, menambah supplier, kategori, dan item.
