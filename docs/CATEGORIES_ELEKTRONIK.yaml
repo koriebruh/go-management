@@ -1,0 +1,130 @@
+openapi: 3.0.1
+info:
+  title: API Auth dan Categories
+  description: API untuk login, membuat kategori, dan mendapatkan data kategori
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/categories:
+    post:
+      summary: Membuat kategori baru
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Elektronik
+                description:
+                  type: string
+                  example: Laptop Gaming
+      responses:
+        '201':
+          description: Kategori berhasil dibuat
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 201
+                  status:
+                    type: string
+                    example: Created
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: success created new category
+
+    get:
+      summary: Mendapatkan daftar kategori
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Daftar kategori berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        Name:
+                          type: string
+                          example: Elektronik
+                        Description:
+                          type: string
+                          example: Laptop Gaming
+                        CreatedBy:
+                          type: integer
+                          example: 1
+                        CreatedAt:
+                          type: string
+                          format: date-time
+                          example: 2024-11-10T14:43:12.581Z
+
+  /api/categories/info:
+    get:
+      summary: Mendapatkan informasi kategori
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Informasi kategori berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        category_id:
+                          type: integer
+                          example: 1
+                        category_name:
+                          type: string
+                          example: Elektronik
+                        item_count:
+                          type: integer
+                          example: 0
+                        total_stock_value:
+                          type: integer
+                          example: 0
+                        average_item_price:
+                          type: integer
+                          example: 0
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

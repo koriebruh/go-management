@@ -1,11 +1,67 @@
 openapi: 3.0.1
 info:
-  title: API Auth dan Categories
-  description: API untuk login, membuat kategori, dan mendapatkan data kategori
+  title: API Auth dan Admin
+  description: API untuk registrasi, login, logout, dan pengambilan data admin
   version: 1.0.0
 servers:
   - url: http://localhost:3000
 paths:
+  /api/auth/register:
+    post:
+      summary: Mendaftarkan admin baru
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: fatlem
+                password:
+                  type: string
+                  example: fatlem224
+                email:
+                  type: string
+                  example: fatlem@example.com
+      responses:
+        '200':
+          description: Registrasi berhasil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: success created new admin
+        '500':
+          description: Gagal registrasi
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 500
+                  status:
+                    type: string
+                    example: Internal Server Error
+                  data:
+                    type: string
+                    example: email already registered
+
   /api/auth/login:
     post:
       summary: Login ke aplikasi
@@ -44,9 +100,9 @@ paths:
                         example: Login Success
                       token:
                         type: string
-                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEzMzgxMzd9.l3jGYV9W2-fcDJzXgaETWxzvl0T_l7eQLvpEgqIAN88
         '500':
-          description: Login gagal
+          description: Gagal login
           content:
             application/json:
               schema:
@@ -60,30 +116,20 @@ paths:
                     example: Internal Server Error
                   data:
                     type: string
-                    example:
-                     login failed: incorrect password
+                    example: login failed incorrect password
 
-  /api/categories:
+  /api/auth/logout:
     post:
-      summary: Membuat kategori baru
-      security:
-        - bearerAuth: []
+      summary: Logout dari aplikasi
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
-              properties:
-                name:
-                  type: string
-                  example: Elektronik
-                description:
-                  type: string
-                  example: Laptop Gaming
       responses:
-        '201':
-          description: Kategori berhasil dibuat
+        '200':
+          description: Logout berhasil
           content:
             application/json:
               schema:
@@ -91,24 +137,25 @@ paths:
                 properties:
                   code:
                     type: integer
-                    example: 201
+                    example: 200
                   status:
                     type: string
-                    example: Created
+                    example: OK
                   data:
                     type: object
                     properties:
                       message:
                         type: string
-                        example: success created new category
+                        example: LogOut Success
 
+  /api/admins:
     get:
-      summary: Mendapatkan daftar kategori
+      summary: Mendapatkan daftar admin
       security:
         - bearerAuth: []
       responses:
         '200':
-          description: Daftar kategori berhasil diambil
+          description: Daftar admin berhasil diambil
           content:
             application/json:
               schema:
@@ -125,59 +172,16 @@ paths:
                     items:
                       type: object
                       properties:
-                        Name:
+                        username:
                           type: string
-                          example: Elektronik
-                        Description:
+                          example: fatlem
+                        email:
                           type: string
-                          example: Laptop Gaming
-                        CreatedBy:
-                          type: integer
-                          example: 1
-                        CreatedAt:
+                          example: fatlem@example.com
+                        createdAt:
                           type: string
                           format: date-time
-                          example: 2024-11-10T14:43:12.581Z
-
-  /api/categories/info:
-    get:
-      summary: Mendapatkan informasi kategori
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Informasi kategori berhasil diambil
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    example: 200
-                  status:
-                    type: string
-                    example: OK
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        category_id:
-                          type: integer
-                          example: 1
-                        category_name:
-                          type: string
-                          example: Elektronik
-                        item_count:
-                          type: integer
-                          example: 0
-                        total_stock_value:
-                          type: integer
-                          example: 0
-                        average_item_price:
-                          type: integer
-                          example: 0
+                          example: 2024-11-10T14:11:41.466Z
 
 components:
   securitySchemes:

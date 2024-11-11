@@ -6,63 +6,6 @@ info:
 servers:
   - url: http://localhost:3000
 paths:
-  /api/auth/login:
-    post:
-      summary: Login ke aplikasi
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                  example: fatlem
-                password:
-                  type: string
-                  example: fatlem224
-      responses:
-        '200':
-          description: Login berhasil
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    example: 200
-                  status:
-                    type: string
-                    example: OK
-                  data:
-                    type: object
-                    properties:
-                      message:
-                        type: string
-                        example: Login Success
-                      token:
-                        type: string
-                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        '500':
-          description: Login gagal
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  code:
-                    type: integer
-                    example: 500
-                  status:
-                    type: string
-                    example: Internal Server Error
-                  data:
-                    type: string
-                    example:
-                     login failed: incorrect password
-
   /api/items:
     post:
       summary: Membuat item baru
@@ -349,6 +292,81 @@ paths:
                           total_suppliers:
                             type: integer
                             example: 1
+
+  /api/items/category:
+    get:
+      summary: Mendapatkan laporan item berdasarkan kategori
+      parameters:
+        - in: query
+          name: category
+          required: true
+          schema:
+            type: string
+          description: Kategori item yang ingin dicari
+      security:
+        - bearerAuth: [ ]
+      responses:
+        '200':
+          description: Laporan item berdasarkan kategori berhasil diambil
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 200
+                  status:
+                    type: string
+                    example: OK
+                  data:
+                    type: object
+                    properties:
+                      ByCategory:
+                        type: string
+                        example: Electronic
+                      Description:
+                        type: string
+                        example: electronic
+                      TotalItem:
+                        type: integer
+                        example: 1
+                      TotalQuantity:
+                        type: integer
+                        example: 3
+                      TotalValue:
+                        type: integer
+                        example: 96000000
+                      Items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            Name:
+                              type: string
+                              example: RC48
+                            Quantity:
+                              type: integer
+                              example: 3
+                            SupplierID:
+                              type: integer
+                              example: 1
+        '401':
+          description: Unauthorized - Token tidak valid atau tidak ada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 401
+                  status:
+                    type: string
+                    example: Unauthorized
+                  message:
+                    type: string
+                    example: "Token is missing or invalid"
 
 components:
   securitySchemes:
