@@ -45,117 +45,7 @@
 
 ---
 
-## 📌 Daftar Endpoint
-
-### Public Endpoints
-
-1. **Hello**
-   - **Endpoint**: `/`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan pesan sambutan.
-
-2. **Register**
-   - **Endpoint**: `/api/auth/register`
-   - **Metode**: `POST`
-   - **Deskripsi**: Mendaftarkan pengguna baru.
-
-3. **Login**
-   - **Endpoint**: `/api/auth/login`
-   - **Metode**: `POST`
-   - **Deskripsi**: Mengotentikasi pengguna.
-
-4. **Logout**
-   - **Endpoint**: `/api/auth/logout`
-   - **Metode**: `POST`
-   - **Deskripsi**: Keluar dari sesi pengguna.
-
----
-
-### Protected Endpoints (Memerlukan Autentikasi)
-
-#### Admin
-
-1. **Daftar Admin**
-   - **Endpoint**: `/api/admins`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan daftar admin.
-
-2. **Hello (Autentikasi)**
-   - **Endpoint**: `/hi`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan pesan sambutan untuk pengguna terotentikasi.
-
-#### Kategori
-
-3. **Daftar Kategori**
-   - **Endpoint**: `/api/categories`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan daftar semua kategori.
-
-4. **Buat Kategori**
-   - **Endpoint**: `/api/categories`
-   - **Metode**: `POST`
-   - **Deskripsi**: Menambahkan kategori baru.
-
-5. **Ringkasan Kategori**
-   - **Endpoint**: `/api/categories/info`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan ringkasan kategori.
-
-#### Item
-
-6. **Daftar Item**
-   - **Endpoint**: `/api/items`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan daftar semua item.
-
-7. **Buat Item**
-   - **Endpoint**: `/api/items`
-   - **Metode**: `POST`
-   - **Deskripsi**: Menambahkan item baru.
-
-8. **Ringkasan Item**
-   - **Endpoint**: `/api/items/info`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan ringkasan item.
-
-9. **Cari Item Berdasarkan Kondisi**
-   - **Endpoint**: `/api/items/condition`
-   - **Metode**: `GET`
-   - **Deskripsi**: Menampilkan item berdasarkan kondisi tertentu.
-
-10. **Metrik Inventaris Item**
-    - **Endpoint**: `/api/items/metric`
-    - **Metode**: `GET`
-    - **Deskripsi**: Menampilkan metrik inventaris untuk item.
-
-11. **Laporan Item Berdasarkan Kategori**
-    - **Endpoint**: `/api/items/category`
-    - **Metode**: `GET`
-    - **Deskripsi**: Menampilkan laporan item berdasarkan kategori.
-
-#### Supplier
-
-12. **Buat Supplier**
-    - **Endpoint**: `/api/suppliers`
-    - **Metode**: `POST`
-    - **Deskripsi**: Menambahkan supplier baru.
-
-13. **Daftar Supplier**
-    - **Endpoint**: `/api/suppliers`
-    - **Metode**: `GET`
-    - **Deskripsi**: Menampilkan daftar semua supplier.
-
-14. **Ringkasan Supplier**
-    - **Endpoint**: `/api/suppliers/info`
-    - **Metode**: `GET`
-    - **Deskripsi**: Menampilkan ringkasan supplier.
-
----
-
-## 🔌 API Endpoint
-
-Berikut adalah beberapa endpoint utama untuk melakukan operasi register, login, logout, menambah supplier, kategori, dan item.
+## 📌 Daftar Endpoint Public 
 
 ### 1. 📝 Register
 Endpoint ini digunakan untuk melakukan registrasi user baru.
@@ -191,7 +81,7 @@ Endpoint ini digunakan untuk logout user.
 
 - **Endpoint**: `api/auth/logout`
 - **Metode**: `POST`
-  - **Request**:
+  - **Response**:
    ```json
    {
      "code": 200,
@@ -202,8 +92,31 @@ Endpoint ini digunakan untuk logout user.
    }
    ```
 - **Deskripsi**: Melakukan logout dari aplikasi. Menghapus session atau token yang digunakan oleh pengguna saat ini.
+
+### 4. 🧑‍💼 Daftar Admin
+Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
+
+- **Endpoint**: `api/admins`
+- **Metode**: `GET`
+- **Resonse**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "username": "fatlem",
+         "email": "fatlem@example.com",
+         "createdAt": "2024-11-10T14:11:41.466Z"
+       }
+     ]
+   }   
+   ```
+- **Deskripsi**: Menampilkan daftar admin yang terdaftar dalam sistem. Menampilkan informasi admin yang memiliki hak akses ke aplikasi.
+
+## 📌 Daftar Endpoint Terpoteksi
   
-### 4. ➕ Menambah Supplier
+### 1. ➕ Menambah Supplier
 Endpoint ini digunakan untuk menambah data supplier baru.
 
 - **Endpoint**: `api/suppliers`
@@ -217,7 +130,7 @@ Endpoint ini digunakan untuk menambah data supplier baru.
    ```
 - **Deskripsi**: Menambah data supplier baru ke dalam sistem. Pengguna dapat memberikan nama dan kontak supplier.
   
-### 5. 🏷️ Menambah Kategori
+### 2. 🏷️ Menambah Kategori
 Endpoint ini digunakan untuk menambah kategori baru.
 
 - **Endpoint**: `api/categories`
@@ -231,7 +144,7 @@ Endpoint ini digunakan untuk menambah kategori baru.
    ```
 - **Deskripsi**: Menambah kategori baru untuk item. Pengguna dapat menambahkan nama kategori dan deskripsi terkait.
   
-### 6. 📦 Menambah Item
+### 3. 📦 Menambah Item
 Endpoint ini digunakan untuk menambah item baru.
 
 - **Endpoint**: `api/items`
@@ -249,7 +162,7 @@ Endpoint ini digunakan untuk menambah item baru.
    ```
 - **Deskripsi**: Menambah item baru dengan informasi seperti nama, deskripsi, harga, kuantitas, kategori, dan supplier.
   
-### 7. 🏷️ Daftar Kategori
+### 4. 🏷️ Daftar Kategori
 Endpoint ini digunakan untuk menampilkan daftar kategori.
 
 - **Endpoint**: `api/categories`
@@ -277,7 +190,7 @@ Endpoint ini digunakan untuk menampilkan daftar kategori.
    ```
 - **Deskripsi**: Menampilkan daftar kategori yang sudah ada. Menampilkan ID dan nama kategori yang terdaftar dalam sistem.
   
-### 8. 🛒 Daftar Supplier
+### 5. 🛒 Daftar Supplier
 Endpoint ini digunakan untuk menampilkan daftar supplier.
 
 - **Endpoint**: `api/suppliers`
@@ -285,33 +198,61 @@ Endpoint ini digunakan untuk menampilkan daftar supplier.
 - **Resonse**:
    ```json
    {
-     "code": 201,
-     "status": "Created",
-     "data": {
-       "message": "success created new supplier"
-     }
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "name": "Windows",
+         "contact_info": "2813412"
+       }
+     ]
    }
    ```  
 - **Deskripsi**: Menampilkan daftar supplier yang sudah terdaftar dalam sistem. Menampilkan informasi supplier yang ada.
-  
-### 9. 📊 Menambah Kategori Baru
-Endpoint ini digunakan untuk menambah kategori baru.
 
-- **Endpoint**: `api/categories`
-- **Metode**: `POST`
+### 6. 🔍 Daftar semua item
+Endpoint ini digunakan untuk mencari semua item 
+
+- **Endpoint**: `api/items/condition?condition=under&threshold=4`
+- **Metode**: `GET`
 - **Resonse**:
    ```json
    {
-     "name": "Furniture",
-     "description": "Modern office chairs"
-   }
+  "code": 200,
+  "status": "OK",
+  "data": [
+    {
+      "id": 1,
+      "name": "Iphone 12x",
+      "description": "Limited edition for jamal Only",
+      "price": 32000000,
+      "quantity": 3,
+      "category": "Comsetic",
+      "supplier": "Windows",
+      "created_by": "jamal",
+      "created_at": "2024-11-10T14:54:46.585Z",
+      "updated_at": "2024-11-10T14:54:46.585Z"
+    },
+    {
+      "id": 2,
+      "name": "RC48",
+      "description": "Limited edition for jamal Only",
+      "price": 32000000,
+      "quantity": 3,
+      "category": "Electronic",
+      "supplier": "Windows",
+      "created_by": "jamal",
+      "created_at": "2024-11-10T14:55:09.403Z",
+      "updated_at": "2024-11-10T14:55:09.403Z"
+    }
+  ]
    ```
- - **Deskripsi**: Menambah kategori baru ke dalam sistem. Pengguna dapat menambahkan kategori seperti furniture atau kategori lainnya.
-
-### 10. 🔍 Cari Item Berdasarkan Kondisi slahsdtrsrytsxdtrxtrx
+- **Deskripsi**: Mencari semua jenis item yang tersedia.
+  
+### 7. 🔍 Cari Item Berdasarkan Kondisi 
 Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 
-- **Endpoint**: `api/items/condition`
+- **Endpoint**: `api/items/condition?condition=under&threshold=4`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -337,36 +278,35 @@ Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 - **Deskripsi**: Mencari item berdasarkan kondisi tertentu, seperti harga atau kuantitas. Membantu menemukan item yang sesuai dengan kriteria yang diinginkan.
 
 
-### 11. 📈 Laporan Item Berdasarkan Kategori salah
+### 8. 📈 Laporan Item Berdasarkan Kategori 
 Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori tertentu.
 
-- **Endpoint**: `api/items/category`
+- **Endpoint**: `api/items/category?category=Electronic`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
    {
      "code": 200,
      "status": "OK",
-     "data": [
-       {
-         "id": 6,
-         "name": "Asus Rog G15 G513RM",
-         "description": "Republik Of Gammer",
-         "price": 22000000,
-         "quantity": 2,
-         "category": "Elektronik",
-         "supplier": "ROG",
-         "created_by": "fatlem",
-         "created_at": "2024-11-10T15:18:54.041Z",
-         "updated_at": "2024-11-10T15:18:54.041Z"
-       }
-     ]
+     "data": {
+       "ByCategory": "Electronic",
+       "Description": "electronic",
+       "TotalItem": 1,
+       "TotalQuantity": 3,
+       "TotalValue": 96000000,
+       "Items": [
+         {
+           "Name": "RC48",
+           "Quantity": 3,
+           "SupplierID": 1
+         }
+       ]
+     }
    }
    ```
 - **Deskripsi**: Menampilkan laporan mengenai item berdasarkan kategori tertentu. Memudahkan untuk melihat semua item yang ada dalam kategori tersebut.
 
-
-### 12. 💾 Metrik Inventaris Item
+### 9. 💾 Metrik Inventaris Item
 Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 
 - **Endpoint**: `api/items/metric`
@@ -402,49 +342,24 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 - **Deskripsi**: Menampilkan metrik terkait inventaris item. Menyediakan informasi tentang stok, nilai rata-rata item, distribusi stok, dan lainnya.
 
 
-### 13. 🧑‍💼 Daftar Admin
-Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
-
-- **Endpoint**: `api/admins`
-- **Metode**: `GET`
-- **Resonse**:
-   ```json
-   {
-     "code": 200,
-     "status": "OK",
-     "data": [
-       {
-         "username": "fatlem",
-         "email": "fatlem@example.com",
-         "createdAt": "2024-11-10T14:11:41.466Z"
-       }
-     ]
-   }   
-   ```
-- **Deskripsi**: Menampilkan daftar admin yang terdaftar dalam sistem. Menampilkan informasi admin yang memiliki hak akses ke aplikasi.
-
-
-### 14. 📊 Laporan Penjualan Berdasarkan Supplier salash
+### 10. 📊 Laporan items
 Endpoint ini digunakan untuk menampilkan laporan penjualan berdasarkan supplier tertentu.
 
-- **Endpoint**: `api/sales/supplier`
+- **Endpoint**: `/api/items/info`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
    {
      "code": 200,
      "status": "OK",
-     "data": [
-       {
-         "supplier_name": "ROG",
-         "total_sales": 44000000,
-         "total_items_sold": 2,
-         "category_sales": {
-           "Elektronik": 44000000
-         },
-         "created_at": "2024-11-10T15:18:54.041Z"
-       }
-     ]
+     "data": {
+       "total_items": 2,
+       "total_stock_value": 192000000,
+       "average_item_price": 32000000,
+       "total_categories": 2,
+       "total_supplier": 1,
+       "updated_at": "2024-11-11T13:42:26.601338354Z"
+     }
    }
    ```
 - **Deskripsi**: Memberikan laporan penjualan yang terperinci berdasarkan supplier, termasuk total penjualan, jumlah produk terjual, dan kategori produk yang terkait.
