@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: API Auth dan Suppliers
-  description: API untuk login, membuat supplier, dan mendapatkan data supplier
+  title: API Suppliers
+  description: API membuat supplier, daftar supplier dan mendapatkan report supplier
   version: 1.0.0
 servers:
   - url: http://localhost:3000

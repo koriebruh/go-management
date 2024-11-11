@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
-  title: API Auth dan Items
-  description: API untuk login, membuat item, mendapatkan data item, dan informasi kondisi stok
+  title: API Items
+  description: API  membuat item, mendapatkan data item, informasi kondisi stok, dll
   version: 1.0.0
 servers:
   - url: http://localhost:3000

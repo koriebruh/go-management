@@ -23,12 +23,12 @@
    ```
 
 2. **Jalankan Database**  
-   Jalankan perintah berikut untuk menjalankan database melalui Docker:
+   Jalankan perintah berikut untuk menjalankan API melalui Docker:
    ```bash
    docker-compose up -d
    ```
 
-3. **Sesuaikan konfigurasi** di file `.env` sesuai kebutuhan Anda.
+3. **Sesuaikan konfigurasi** di file `.env` sesuai kebutuhan Anda, pastikan anda meyesuaikan `docker-compose.yaml`.
 
 ---
 
@@ -215,38 +215,39 @@ Endpoint ini digunakan untuk mencari semua item
 
 - **Endpoint**: `api/items/condition?condition=under&threshold=4`
 - **Metode**: `GET`
-- **Resonse**:
-   ```json
-   {
-  "code": 200,
-  "status": "OK",
-  "data": [
-    {
-      "id": 1,
-      "name": "Iphone 12x",
-      "description": "Limited edition for jamal Only",
-      "price": 32000000,
-      "quantity": 3,
-      "category": "Comsetic",
-      "supplier": "Windows",
-      "created_by": "jamal",
-      "created_at": "2024-11-10T14:54:46.585Z",
-      "updated_at": "2024-11-10T14:54:46.585Z"
-    },
-    {
-      "id": 2,
-      "name": "RC48",
-      "description": "Limited edition for jamal Only",
-      "price": 32000000,
-      "quantity": 3,
-      "category": "Electronic",
-      "supplier": "Windows",
-      "created_by": "jamal",
-      "created_at": "2024-11-10T14:55:09.403Z",
-      "updated_at": "2024-11-10T14:55:09.403Z"
+  - **Resonse**:
+     ```json
+     {
+      "code": 200,
+      "status": "OK",
+      "data": [
+        {
+          "id": 1,
+          "name": "Iphone 12x",
+          "description": "Limited edition for jamal Only",
+          "price": 32000000,
+          "quantity": 3,
+          "category": "Comsetic",
+          "supplier": "Windows",
+          "created_by": "jamal",
+          "created_at": "2024-11-10T14:54:46.585Z",
+          "updated_at": "2024-11-10T14:54:46.585Z"
+        },
+        {
+          "id": 2,
+          "name": "RC48",
+          "description": "Limited edition for jamal Only",
+          "price": 32000000,
+          "quantity": 3,
+          "category": "Electronic",
+          "supplier": "Windows",
+          "created_by": "jamal",
+          "created_at": "2024-11-10T14:55:09.403Z",
+          "updated_at": "2024-11-10T14:55:09.403Z"
+        }
+      ]
     }
-  ]
-   ```
+     ```
 - **Deskripsi**: Mencari semua jenis item yang tersedia.
   
 ### 7. 🔍 Cari Item Berdasarkan Kondisi 

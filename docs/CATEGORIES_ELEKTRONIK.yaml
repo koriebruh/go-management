@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: API Auth dan Categories
-  description: API untuk login, membuat kategori, dan mendapatkan data kategori
+  description: API mendapatkan daftar category, membuat kategori, dan mendapatkan report kategori
   version: 1.0.0
 servers:
   - url: http://localhost:3000
@@ -84,7 +84,7 @@ paths:
 
   /api/categories/info:
     get:
-      summary: Mendapatkan informasi kategori
+      summary: Mendapatkan report kategori
       security:
         - bearerAuth: []
       responses:
