@@ -189,7 +189,15 @@ Endpoint ini digunakan untuk logout user.
 
 - **Endpoint**: `/auth/logout`
 - **Metode**: `POST`
-  
+  - **Request**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": {
+       "message": "LogOut Success"
+      }
+   }
    ```
 
 ### 4. ➕ Menambah Supplier
@@ -240,10 +248,14 @@ Endpoint ini digunakan untuk menampilkan daftar kategori.
 
 - **Endpoint**: `/categories`
 - **Metode**: `GET`
-- **Kode Implementasi**:
-   ```go
-   func GetCategories(w http.ResponseWriter, r *http.Request) {
-       // Logic untuk menampilkan kategori
+- **Request**:
+   ```json
+   {
+     "code": 201,
+     "status": "Created",
+     "data": {
+       "message": "success created new category"
+     }
    }
    ```
 
@@ -252,8 +264,16 @@ Endpoint ini digunakan untuk menampilkan daftar supplier.
 
 - **Endpoint**: `/suppliers`
 - **Metode**: `GET`
-  
-   ```
+- **Request**:
+   ```json
+   {
+     "code": 201,
+     "status": "Created",
+     "data": {
+       "message": "success created new supplier"
+     }
+   }
+   ```  
 
 ### 9. 📊 Menambah Kategori Baru
 Endpoint ini digunakan untuk menambah kategori baru.
@@ -273,36 +293,103 @@ Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 
 - **Endpoint**: `/items/condition`
 - **Metode**: `GET`
+- **Request**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "id": 6,
+         "name": "Asus Rog G15 G513RM",
+         "description": "Republik Of Gammer",
+         "price": 22000000,
+         "quantity": 2,
+         "category": "",
+         "supplier": "",
+         "created_by": "",
+         "created_at": "2024-11-10T15:18:54.041Z",
+         "updated_at": "2024-11-10T15:18:54.041Z"
+       }
+     ]
+   }
+   ```
 - **Deskripsi**: Menampilkan item berdasarkan kondisi tertentu seperti harga, kuantitas, dll.
 
-   ```
 
 ### 11. 📈 Laporan Item Berdasarkan Kategori
 Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori tertentu.
 
 - **Endpoint**: `/items/category`
 - **Metode**: `GET`
+- **Request**:
+   ```json
+   {
+     "code": 500,
+     "status": "Internal Server Error",
+     "data": "error transactional item"
+   }
+   ```
 - **Deskripsi**: Menampilkan laporan item berdasarkan kategori.
 
-   ```
 
 ### 12. 💾 Metrik Inventaris Item
 Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 
 - **Endpoint**: `/items/metric`
 - **Metode**: `GET`
+- **Request**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": {
+       "stock_status": {
+         "healthy_stock": 0,
+         "low_stock": 1,
+         "out_of_stock": 0
+       },
+       "value_metrics": {
+         "highest_value_category": "Elektronik",
+         "lowest_value_category": "Elektronik",
+         "average_item_value": 22000000,
+         "total_stock_value": 44000000,
+         "total_items": 2
+       },
+       "stock_distribution": {
+         "by_category": {
+           "Elektronik": "100.00%"
+         },
+         "total_categories": 1,
+         "total_suppliers": 1
+       }
+     }
+   }
+   ```
 - **Deskripsi**: Menampilkan metrik inventaris item seperti stok, penjualan, dll.
 
-   ```
 
 ### 13. 🧑‍💼 Daftar Admin
 Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
 
 - **Endpoint**: `/admins`
 - **Metode**: `GET`
+- **Request**:
+   ```json
+   {
+     "code": 200,
+     "status": "OK",
+     "data": [
+       {
+         "username": "fatlem",
+         "email": "fatlem@example.com",
+         "createdAt": "2024-11-10T14:11:41.466Z"
+       }
+     ]
+   }   
+   ```
 - **Deskripsi**: Menampilkan daftar admin.
 
-   ```
 
 ### 14. 🏅 Hello (Autentikasi)
 Endpoint ini digunakan untuk menampilkan pesan sambutan untuk pengguna yang sudah terautentikasi.
