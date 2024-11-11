@@ -1,4 +1,3 @@
-Berikut adalah hasil penggabungan dan perapihan bagian endpoint yang sudah disesuaikan:
 
 ---
 
