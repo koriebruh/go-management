@@ -160,7 +160,7 @@ Berikut adalah beberapa endpoint utama untuk melakukan operasi register, login, 
 ### 1. 📝 Register
 Endpoint ini digunakan untuk melakukan registrasi user baru.
 
-- **Endpoint**: `/auth/register`
+- **Endpoint**: `api/auth/register`
 - **Metode**: `POST`
 - **Request**:
    ```json
@@ -175,7 +175,7 @@ Endpoint ini digunakan untuk melakukan registrasi user baru.
 ### 2. 🔑 Login
 Endpoint ini digunakan untuk melakukan login.
 
-- **Endpoint**: `/auth/login`
+- **Endpoint**: `api/auth/login`
 - **Metode**: `POST`
 - **Request**:
    ```json
@@ -189,7 +189,7 @@ Endpoint ini digunakan untuk melakukan login.
 ### 3. 🚪 Logout
 Endpoint ini digunakan untuk logout user.
 
-- **Endpoint**: `/auth/logout`
+- **Endpoint**: `api/auth/logout`
 - **Metode**: `POST`
   - **Request**:
    ```json
@@ -206,7 +206,7 @@ Endpoint ini digunakan untuk logout user.
 ### 4. ➕ Menambah Supplier
 Endpoint ini digunakan untuk menambah data supplier baru.
 
-- **Endpoint**: `/suppliers`
+- **Endpoint**: `api/suppliers`
 - **Metode**: `POST`
 - **Request**:
    ```json
@@ -220,7 +220,7 @@ Endpoint ini digunakan untuk menambah data supplier baru.
 ### 5. 🏷️ Menambah Kategori
 Endpoint ini digunakan untuk menambah kategori baru.
 
-- **Endpoint**: `/categories`
+- **Endpoint**: `api/categories`
 - **Metode**: `POST`
 - **Request**:
    ```json
@@ -234,7 +234,7 @@ Endpoint ini digunakan untuk menambah kategori baru.
 ### 6. 📦 Menambah Item
 Endpoint ini digunakan untuk menambah item baru.
 
-- **Endpoint**: `/items`
+- **Endpoint**: `api/items`
 - **Metode**: `POST`
 - **Request**:
    ```json
@@ -252,7 +252,7 @@ Endpoint ini digunakan untuk menambah item baru.
 ### 7. 🏷️ Daftar Kategori
 Endpoint ini digunakan untuk menampilkan daftar kategori.
 
-- **Endpoint**: `/categories`
+- **Endpoint**: `api/categories`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -280,7 +280,7 @@ Endpoint ini digunakan untuk menampilkan daftar kategori.
 ### 8. 🛒 Daftar Supplier
 Endpoint ini digunakan untuk menampilkan daftar supplier.
 
-- **Endpoint**: `/suppliers`
+- **Endpoint**: `api/suppliers`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -297,7 +297,7 @@ Endpoint ini digunakan untuk menampilkan daftar supplier.
 ### 9. 📊 Menambah Kategori Baru
 Endpoint ini digunakan untuk menambah kategori baru.
 
-- **Endpoint**: `/categories`
+- **Endpoint**: `api/categories`
 - **Metode**: `POST`
 - **Resonse**:
    ```json
@@ -308,10 +308,10 @@ Endpoint ini digunakan untuk menambah kategori baru.
    ```
  - **Deskripsi**: Menambah kategori baru ke dalam sistem. Pengguna dapat menambahkan kategori seperti furniture atau kategori lainnya.
 
-### 10. 🔍 Cari Item Berdasarkan Kondisi
+### 10. 🔍 Cari Item Berdasarkan Kondisi slahsdtrsrytsxdtrxtrx
 Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 
-- **Endpoint**: `/items/condition`
+- **Endpoint**: `api/items/condition`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -337,10 +337,10 @@ Endpoint ini digunakan untuk mencari item berdasarkan kondisi tertentu.
 - **Deskripsi**: Mencari item berdasarkan kondisi tertentu, seperti harga atau kuantitas. Membantu menemukan item yang sesuai dengan kriteria yang diinginkan.
 
 
-### 11. 📈 Laporan Item Berdasarkan Kategori
+### 11. 📈 Laporan Item Berdasarkan Kategori salah
 Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori tertentu.
 
-- **Endpoint**: `/items/category`
+- **Endpoint**: `api/items/category`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -369,7 +369,7 @@ Endpoint ini digunakan untuk menampilkan laporan item berdasarkan kategori terte
 ### 12. 💾 Metrik Inventaris Item
 Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 
-- **Endpoint**: `/items/metric`
+- **Endpoint**: `api/items/metric`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -405,7 +405,7 @@ Endpoint ini digunakan untuk menampilkan metrik inventaris untuk item.
 ### 13. 🧑‍💼 Daftar Admin
 Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
 
-- **Endpoint**: `/admins`
+- **Endpoint**: `api/admins`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
@@ -424,10 +424,10 @@ Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
 - **Deskripsi**: Menampilkan daftar admin yang terdaftar dalam sistem. Menampilkan informasi admin yang memiliki hak akses ke aplikasi.
 
 
-### 14. 📊 Laporan Penjualan Berdasarkan Supplier
+### 14. 📊 Laporan Penjualan Berdasarkan Supplier salash
 Endpoint ini digunakan untuk menampilkan laporan penjualan berdasarkan supplier tertentu.
 
-- **Endpoint**: `/sales/supplier`
+- **Endpoint**: `api/sales/supplier`
 - **Metode**: `GET`
 - **Resonse**:
    ```json
