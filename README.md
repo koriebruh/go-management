@@ -55,7 +55,7 @@ Endpoint ini digunakan untuk melakukan registrasi user baru.
 - **Request**:
    ```json
    {
-     "username": "fatleme",
+     "username": "fatlem",
      "password": "fatlem123",
      "email": "fatlem@gmail.com"
    }
