@@ -55,9 +55,9 @@ Endpoint ini digunakan untuk melakukan registrasi user baru.
 - **Request**:
    ```json
    {
-     "username": "user1",
-     "password": "password123",
-     "email": "user1@gmail.com"
+     "username": "fatleme",
+     "password": "fatlem123",
+     "email": "fatlem@gmail.com"
    }
    ```
 - **Deskripsi**: Melakukan registrasi user baru. Pengguna dapat mendaftar dengan menyediakan username, password, dan email untuk membuat akun baru.
@@ -70,8 +70,8 @@ Endpoint ini digunakan untuk melakukan login.
 - **Request**:
    ```json
    {
-     "username": "user1",
-     "password": "password123"
+     "username": "fatlem",
+     "password": "fatlem123"
    }
    ```
 - **Deskripsi**: Login ke aplikasi menggunakan username dan password yang sudah terdaftar. Mengembalikan token yang dapat digunakan untuk akses lebih lanjut.
@@ -106,7 +106,7 @@ Endpoint ini digunakan untuk menampilkan daftar admin yang terdaftar.
      "data": [
        {
          "username": "fatlem",
-         "email": "fatlem@example.com",
+         "email": "fatlem@gmail.com",
          "createdAt": "2024-11-10T14:11:41.466Z"
        }
      ]
@@ -124,8 +124,8 @@ Endpoint ini digunakan untuk menambah data supplier baru.
 - **Request**:
    ```json
    {
-     "name": "Supplier A",
-     "contact": "supplierA@example.com"
+     "name": "fatlem",
+     "contact": "fatlem@example.com"
    }
    ```
 - **Deskripsi**: Menambah data supplier baru ke dalam sistem. Pengguna dapat memberikan nama dan kontak supplier.
