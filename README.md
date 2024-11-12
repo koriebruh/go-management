@@ -1,3 +1,4 @@
+
 # 📋 Go-Management
 
 **Go-Management** adalah aplikasi manajemen berbasis Golang yang mendukung fungsi autentikasi dan pengelolaan supplier, kategori, dan item. Proyek ini dikembangkan menggunakan berbagai komponen seperti controller, service, repository, dan domain.
@@ -124,7 +125,7 @@ Endpoint ini digunakan untuk menambah data supplier baru.
    ```json
    {
      "name": "fatlem",
-     "contact": "fatlem@example.com"
+     "contact": "fatlem@gmail.com"
    }
    ```
 - **Deskripsi**: Menambah data supplier baru ke dalam sistem. Pengguna dapat memberikan nama dan kontak supplier.
