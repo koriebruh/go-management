@@ -1,3 +1,7 @@
+### 🧑‍💻`A11.2022.14616 || M.Jamaludin Nur`
+### 🧑‍💻`A11.2022.14624 || Faathir El Tasleem`
+
+---
 
 # 📋 Go-Management
 
