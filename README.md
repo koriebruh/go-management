@@ -1,6 +1,8 @@
 ### 🧑‍💻`A11.2022.14616 || M.Jamaludin Nur`
+   - Git :  https://github.com/koriebruh
 ### 🧑‍💻`A11.2022.14624 || Faathir El Tasleem`
-
+   - Git : https://github.com/Fatlem
+   
 ---
 
 # 📋 Go-Management
