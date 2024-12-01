@@ -6,6 +6,7 @@ import (
 	"koriebruh/management/cnf"
 	"koriebruh/management/dto"
 	"koriebruh/management/service"
+	"koriebruh/management/utils"
 	"net/http"
 	"time"
 )
@@ -29,51 +30,30 @@ func (controller AuthControllerImpl) Register(ctx *fiber.Ctx) error {
 	// Parse request body ke DTO
 	var request dto.RegisterRequest
 	if err := ctx.BodyParser(&request); err != nil {
-		return ctx.Status(http.StatusBadRequest).JSON(dto.WebResponse{
-			Code:   http.StatusBadRequest,
-			Status: "Bad Request",
-			Data:   err.Error(),
-		})
+		errResponse := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
-	// Panggil service untuk menangani logika registrasi
-	err := controller.AuthService.Register(ctx, request)
+	webResponse, err := controller.AuthService.Register(ctx, request)
 	if err != nil {
-		// Menangani error yang terjadi
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		errResponse := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 
-	// Respons sukses
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data: map[string]string{
-			"message": "success created new admin",
-		},
-	})
+	return ctx.Status(http.StatusCreated).JSON(webResponse)
 }
 
 func (controller AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 	// Parse request body ke DTO
 	var request dto.LoginRequest
 	if err := ctx.BodyParser(&request); err != nil {
-		return ctx.Status(http.StatusBadRequest).JSON(dto.WebResponse{
-			Code:   http.StatusBadRequest,
-			Status: "Bad Request",
-			Data:   err.Error(),
-		})
+		errResponse := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 	// Panggil service untuk menangani logika registrasi
 	adminId, err := controller.AuthService.Login(ctx, request)
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		errResponse := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 
 	//SETTING GENERATE JWT
@@ -90,11 +70,7 @@ func (controller AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 	tokenAlgo := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenValue, err := tokenAlgo.SignedString([]byte(cnf.JWT_KEY))
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   "ERROR Generate Token",
-		})
+		return err
 	}
 
 	ctx.Cookie(&fiber.Cookie{
@@ -103,14 +79,8 @@ func (controller AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 		Value: tokenValue,
 	})
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data: map[string]string{
-			"message": "Login Success",
-			"token":   tokenValue,
-		},
-	})
+	res := utils.SuccessRes(http.StatusOK, "SUCCESS", map[string]string{"TOKEN": tokenValue})
+	return ctx.Status(http.StatusOK).JSON(res)
 
 }
 
@@ -135,16 +105,9 @@ func (controller AuthControllerImpl) Logout(ctx *fiber.Ctx) error {
 func (controller AuthControllerImpl) FindAllAdmin(ctx *fiber.Ctx) error {
 	admins, err := controller.AuthService.FindAllAdmin(ctx.Context())
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "StatusInternalServerError",
-			Data:   nil,
-		})
+		webErr := utils.ErrorResponseWeb(utils.ErrInternalServerError, err)
+		return ctx.Status(http.StatusInternalServerError).JSON(webErr)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   admins,
-	})
+	return ctx.Status(http.StatusOK).JSON(admins)
 }

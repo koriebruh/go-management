@@ -2,31 +2,40 @@ package service
 
 import (
 	"context"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 	"koriebruh/management/domain"
 	"koriebruh/management/dto"
 	"koriebruh/management/repository"
+	"koriebruh/management/utils"
+	"net/http"
 )
 
 type AuthService interface {
-	Register(ctx *fiber.Ctx, request dto.RegisterRequest) error
+	Register(ctx *fiber.Ctx, request dto.RegisterRequest) (dto.WebResponse, error)
 	Login(ctx *fiber.Ctx, request dto.LoginRequest) (uint, error)
-	FindAllAdmin(ctx context.Context) ([]dto.AdminsResponse, error)
+	FindAllAdmin(ctx context.Context) (dto.WebResponse, error)
 }
 
 type AuthServiceImpl struct {
 	*gorm.DB
 	repository.AuthRepository
+	*validator.Validate
 }
 
-func NewAuthService(DB *gorm.DB, authRepository repository.AuthRepository) *AuthServiceImpl {
-	return &AuthServiceImpl{DB: DB, AuthRepository: authRepository}
+func NewAuthService(DB *gorm.DB, authRepository repository.AuthRepository, validate *validator.Validate) *AuthServiceImpl {
+	return &AuthServiceImpl{DB: DB, AuthRepository: authRepository, Validate: validate}
 }
 
-func (service AuthServiceImpl) Register(ctx *fiber.Ctx, request dto.RegisterRequest) error {
-	return service.DB.Transaction(func(tx *gorm.DB) error {
+func (service AuthServiceImpl) Register(ctx *fiber.Ctx, request dto.RegisterRequest) (dto.WebResponse, error) {
+	if err := service.Validate.Struct(request); err != nil {
+
+		return utils.ErrorResponseWeb(utils.ErrBadRequest, err), nil
+	}
+
+	err := service.DB.Transaction(func(tx *gorm.DB) error {
 
 		passwordHashed, err := bcrypt.GenerateFromPassword([]byte(request.Password), bcrypt.DefaultCost)
 		if err != nil {
@@ -46,9 +55,21 @@ func (service AuthServiceImpl) Register(ctx *fiber.Ctx, request dto.RegisterRequ
 
 		return nil
 	})
+
+	if err != nil {
+		return utils.ErrorResponseWeb(utils.ErrBadRequest, err), nil
+	}
+
+	return utils.SuccessRes(http.StatusCreated, "CREATED", "SUCCESS CREATED"), nil
 }
 
 func (service AuthServiceImpl) Login(ctx *fiber.Ctx, request dto.LoginRequest) (uint, error) {
+
+	if err := service.Validate.Struct(request); err != nil {
+		return 0, err
+	}
+
+	//FOP DAN SAVE INTO JWT
 	var adminId uint
 
 	err := service.DB.Transaction(func(tx *gorm.DB) error {
@@ -74,7 +95,7 @@ func (service AuthServiceImpl) Login(ctx *fiber.Ctx, request dto.LoginRequest) (
 
 }
 
-func (service AuthServiceImpl) FindAllAdmin(ctx context.Context) ([]dto.AdminsResponse, error) {
+func (service AuthServiceImpl) FindAllAdmin(ctx context.Context) (dto.WebResponse, error) {
 	var admins []domain.Admin          // ini untuk tangkap hasil db
 	var adminList []dto.AdminsResponse // ini dto
 
@@ -90,7 +111,7 @@ func (service AuthServiceImpl) FindAllAdmin(ctx context.Context) ([]dto.AdminsRe
 	})
 
 	if err != nil {
-		return adminList, nil
+		return utils.ErrorResponseWeb(utils.ErrBadRequest, err), nil
 	}
 
 	for _, admin := range admins {
@@ -102,5 +123,5 @@ func (service AuthServiceImpl) FindAllAdmin(ctx context.Context) ([]dto.AdminsRe
 		adminList = append(adminList, adminLimit)
 	}
 
-	return adminList, nil
+	return utils.SuccessRes(http.StatusOK, "OK", adminList), nil
 }

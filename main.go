@@ -2,6 +2,7 @@ package main
 
 import "C"
 import (
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"koriebruh/management/cnf"
@@ -14,8 +15,9 @@ import (
 
 func main() {
 	db := cnf.InitDB()
+	validate := validator.New()
 	authRepository := repository.NewAuthRepository()
-	authService := service.NewAuthService(db, authRepository)
+	authService := service.NewAuthService(db, authRepository, validate)
 	authController := controller.NewAuthController(authService)
 
 	categoryRepository := repository.NewCategoryRepository()

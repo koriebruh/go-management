@@ -10,9 +10,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "fatlem",
-  "password": "fatlem224",
-  "email": "fatlem@example.com"
+  "username": "admin",
+  "password": "admin123",
+  "email": "faqq@xample.com"
 }
 
 ###
@@ -21,8 +21,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "fatlem",
-  "password": "fatlem224S"
+  "username": "admin",
+  "password": "admin123"
 }
 
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/admins
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTE4MDh9.m8Vvsnz2ylbnYhB10I59Bv6udGgo5yHlkppF4R-veoA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA2NzY4Nn0.05lfxgzNAnSjDy6RPCeKP5HXl3qI7iGlM5mMxULZDkE
 
 ###
 POST http://localhost:3000//api/auth/logout
