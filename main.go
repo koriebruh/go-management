@@ -21,15 +21,15 @@ func main() {
 	authController := controller.NewAuthController(authService)
 
 	categoryRepository := repository.NewCategoryRepository()
-	categoryService := service.NewCategoryService(db, categoryRepository)
+	categoryService := service.NewCategoryService(db, categoryRepository, validate)
 	categoryController := controller.NewCategoryController(categoryService)
 
 	itemRepository := repository.NewItemRepository()
-	itemService := service.NewItemService(itemRepository, db)
+	itemService := service.NewItemService(itemRepository, db, validate)
 	itemController := controller.NewItemController(itemService)
 
 	supplierRepository := repository.NewSupplierRepository()
-	supplierService := service.NewSupplierService(db, supplierRepository)
+	supplierService := service.NewSupplierService(db, supplierRepository, validate)
 	supplierController := controller.NewSupplierController(supplierService)
 
 	app := fiber.New(fiber.Config{

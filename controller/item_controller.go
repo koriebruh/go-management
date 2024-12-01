@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"errors"
 	"github.com/gofiber/fiber/v2"
 	"koriebruh/management/dto"
 	"koriebruh/management/service"
+	"koriebruh/management/utils"
 	"log"
 	"net/http"
 	"strconv"
@@ -32,29 +34,18 @@ func (controller ItemControllerImpl) CreateItem(ctx *fiber.Ctx) error {
 	token := ctx.Cookies("token")
 
 	if err := ctx.BodyParser(&request); err != nil {
-		return ctx.Status(http.StatusBadRequest).JSON(dto.WebResponse{
-			Code:   http.StatusBadRequest,
-			Status: "Bad Request",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
 	err := controller.ItemService.Create(ctx.Context(), token, request)
 	if err != nil { // <-- if got error in service or repo
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusCreated,
-		Status: "Created",
-		Data: map[string]string{
-			"message": "success created new item",
-		},
-	})
+	res := utils.SuccessRes(http.StatusCreated, "SUCCESS", map[string]string{"message": "success created new item"})
+	return ctx.Status(http.StatusCreated).JSON(res)
 
 }
 
@@ -62,36 +53,24 @@ func (controller ItemControllerImpl) FindAllByItem(ctx *fiber.Ctx) error {
 
 	item, err := controller.ItemService.FindAllItem(ctx.Context())
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   item,
-	})
+	res := utils.SuccessRes(http.StatusOK, "OK", item)
+	return ctx.Status(http.StatusOK).JSON(res)
 
 }
 
 func (controller ItemControllerImpl) SummaryItem(ctx *fiber.Ctx) error {
 	summary, err := controller.ItemService.SummaryItem(ctx.Context())
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   summary,
-	})
+	res := utils.SuccessRes(http.StatusOK, "OK", summary)
+	return ctx.Status(http.StatusOK).JSON(res)
 }
 
 func (controller ItemControllerImpl) FindByCondition(ctx *fiber.Ctx) error {
@@ -101,59 +80,39 @@ func (controller ItemControllerImpl) FindByCondition(ctx *fiber.Ctx) error {
 
 	threshold, err := strconv.Atoi(thresholdStr)
 	if err != nil {
-		log.Printf("error thresholdStr %v", err.Error())
-		return ctx.Status(fiber.StatusBadRequest).JSON(dto.WebResponse{
-			Code:   http.StatusBadRequest,
-			Status: "Bad Request",
-			Data: map[string]string{
-				"error": "Invalid threshold value",
-			},
-		})
+		err = errors.New("error: Invalid threshold value")
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
 	if condition == "" {
 		log.Println("error condition ")
-		return ctx.Status(fiber.StatusBadRequest).JSON(dto.WebResponse{
-			Code:   http.StatusBadRequest,
-			Status: "Bad Request",
-			Data: map[string]string{
-				"error": "Condition parameter is required",
-			},
-		})
+		err := errors.New("error: Condition parameter is required")
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
 	valueCondition, err := controller.ItemService.FindByCondition(ctx.Context(), condition, threshold)
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   valueCondition,
-	})
+	res := utils.SuccessRes(http.StatusOK, "OK", valueCondition)
+	return ctx.Status(http.StatusOK).JSON(res)
 
 }
 
 func (controller ItemControllerImpl) InventoryMetrics(ctx *fiber.Ctx) error {
 	metric, err := controller.ItemService.InventoryMetrics(ctx.Context())
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   metric,
-	})
+	res := utils.SuccessRes(http.StatusOK, "OK", metric)
+	return ctx.Status(http.StatusOK).JSON(res)
+
 }
 
 func (controller ItemControllerImpl) ReportItemByCategory(ctx *fiber.Ctx) error {
@@ -162,16 +121,10 @@ func (controller ItemControllerImpl) ReportItemByCategory(ctx *fiber.Ctx) error 
 
 	report, err := controller.ItemService.ReportItemByCategory(ctx.Context(), condition)
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dto.WebResponse{
-			Code:   http.StatusInternalServerError,
-			Status: "Internal Server Error",
-			Data:   err.Error(),
-		})
+		responseWeb := utils.ErrorResponseWeb(utils.ErrBadRequest, err)
+		return ctx.Status(http.StatusBadRequest).JSON(responseWeb)
 	}
 
-	return ctx.Status(http.StatusOK).JSON(dto.WebResponse{
-		Code:   http.StatusOK,
-		Status: "OK",
-		Data:   report,
-	})
+	res := utils.SuccessRes(http.StatusOK, "OK", report)
+	return ctx.Status(http.StatusOK).JSON(res)
 }

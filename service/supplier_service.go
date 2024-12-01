@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v5"
 	"gorm.io/gorm"
 	"koriebruh/management/cnf"
@@ -19,13 +20,18 @@ type SupplierService interface {
 type SupplierServiceImpl struct {
 	*gorm.DB
 	repository.SupplierRepository
+	*validator.Validate
 }
 
-func NewSupplierService(DB *gorm.DB, supplierRepository repository.SupplierRepository) *SupplierServiceImpl {
-	return &SupplierServiceImpl{DB: DB, SupplierRepository: supplierRepository}
+func NewSupplierService(DB *gorm.DB, supplierRepository repository.SupplierRepository, validate *validator.Validate) *SupplierServiceImpl {
+	return &SupplierServiceImpl{DB: DB, SupplierRepository: supplierRepository, Validate: validate}
 }
 
 func (service SupplierServiceImpl) Create(ctx context.Context, token string, request dto.SupplierRequest) error {
+	if err := service.Validate.Struct(request); err != nil {
+		return err
+	}
+
 	var requestMapping domain.Supplier
 
 	// TAKE

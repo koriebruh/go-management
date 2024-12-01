@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"gorm.io/gorm"
@@ -22,13 +23,17 @@ type CategoryService interface {
 type CategoryServiceImpl struct {
 	*gorm.DB
 	repository.CategoryRepository
+	*validator.Validate
 }
 
-func NewCategoryService(DB *gorm.DB, categoryRepository repository.CategoryRepository) *CategoryServiceImpl {
-	return &CategoryServiceImpl{DB: DB, CategoryRepository: categoryRepository}
+func NewCategoryService(DB *gorm.DB, categoryRepository repository.CategoryRepository, validate *validator.Validate) *CategoryServiceImpl {
+	return &CategoryServiceImpl{DB: DB, CategoryRepository: categoryRepository, Validate: validate}
 }
 
 func (service CategoryServiceImpl) Create(ctx *fiber.Ctx, request dto.CategoryRequest) error {
+	if err := service.Validate.Struct(request); err != nil {
+		return err
+	}
 	return service.DB.Transaction(func(tx *gorm.DB) error {
 		//TAKE TOKEN
 		token := ctx.Cookies("token")

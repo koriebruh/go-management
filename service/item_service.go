@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"errors"
+	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v5"
 	"gorm.io/gorm"
 	"koriebruh/management/cnf"
@@ -24,14 +25,17 @@ type ItemService interface {
 type ItemServiceImpl struct {
 	repository.ItemRepository
 	*gorm.DB
+	*validator.Validate
 }
 
-func NewItemService(itemRepository repository.ItemRepository, DB *gorm.DB) *ItemServiceImpl {
-	return &ItemServiceImpl{ItemRepository: itemRepository, DB: DB}
+func NewItemService(itemRepository repository.ItemRepository, DB *gorm.DB, validate *validator.Validate) *ItemServiceImpl {
+	return &ItemServiceImpl{ItemRepository: itemRepository, DB: DB, Validate: validate}
 }
 
 func (service ItemServiceImpl) Create(ctx context.Context, token string, request dto.ItemRequest) error {
-
+	if err := service.Validate.Struct(request); err != nil {
+		return err
+	}
 	// TAKE
 	claims := &cnf.JWTClaim{}
 	_, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {

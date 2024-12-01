@@ -4,18 +4,18 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "fatlem",
-  "password": "fatlem224"
+  "username": "admin",
+  "password": "admin123"
 }
 
 ###
 POST http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTMyNDl9.Qy6Y5sUSazZkEbzosep9GRzKvUXYGpjLzLEdSKQbecM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA2OTU3MH0.Cn0QgC4rL7tD3TP7phRrFXCDpqd7664GuhOdjin_oco
 
 {
-  "name": "Elektronik",
+  "name": "YOSH",
   "description": "Laptop Gaming"
 }
 
@@ -24,13 +24,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hb
 GET http://localhost:3000/api/categories
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTMyNDl9.Qy6Y5sUSazZkEbzosep9GRzKvUXYGpjLzLEdSKQbecM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA2OTkzMn0.X-9-Joea7cjMEoYyOYn7hvTXuyvmlHBf0VmEmuc-XCM
 
 
 ###
 GET http://localhost:3000/api/categories/info
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTMyNDl9.Qy6Y5sUSazZkEbzosep9GRzKvUXYGpjLzLEdSKQbecM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA2OTkzMn0.X-9-Joea7cjMEoYyOYn7hvTXuyvmlHBf0VmEmuc-XCM
 
 

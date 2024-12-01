@@ -4,15 +4,15 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "fatlem",
-  "password": "fatlem224"
+  "username": "admin",
+  "password": "admin123"
 }
 
 ### CREATE
 POST http://localhost:3000/api/items
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEyNTI5NDl9.tYFXn81ae_4KFOkD1rG6Bqy-ZViHjQhxsYYjXlTDH0k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MDQ5Nn0.3NxI_XKyccMhGIbAfm8HaxQenWhHz0z3L35GYpIS5A4
 
 {
   "name": "Asus Rog G15 G513RM",
@@ -27,41 +27,40 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hb
 GET http://localhost:3000/api/items
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2NTA5M30.jhrrm3NOMBEP-N6V2k7FV7-UZyG_hzRmZj5-mC6SeNE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
 
 ### SUMARY
 GET http://localhost:3000/api/items/info
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2MTA0Nn0.0gRwQtnNcQchZCNvLWhDf4X63MthYAR42wt90UIlP_Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
 
 ### FIND BY CONDITION
 GET http://localhost:3000/api/items/condition?condition=under&threshold=4
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2MTA0Nn0.0gRwQtnNcQchZCNvLWhDf4X63MthYAR42wt90UIlP_Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
 
 ### FIND BY CONDITION
 GET http://localhost:3000/api/items/condition?condition=over&threshold=4
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTEwMjYzOX0.5jcRRl068HmcVWxdeZHytRNwEwPi75FvHKZktr_70y4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
 
 ### FIND BY CONDITION
 GET http://localhost:3000/api/items/condition?condition=equal&threshold=10
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2MTA0Nn0.0gRwQtnNcQchZCNvLWhDf4X63MthYAR42wt90UIlP_Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
 
 
 ### FIND metric
 GET http://localhost:3000/api/items/metric
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiVXNlck5hbWUiOiJrb3JpZSIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMTE2MjEzN30.ws50kGBdNA4dScpr84c93U84yw-7eFJTAVgu9Gune9o
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
 ### FIND REPORT BY CATEGORY
 GET http://localhost:3000/api/items/category?category=Electronic
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiVXNlck5hbWUiOiJmYXRsZW0iLCJpc3MiOiJrb3JpZWJydWgiLCJleHAiOjE3MzEzMzg2MDB9.9SmoR8p51QAPTD1jP9463M2aYoSIkXEjF6iW6rs1_Q0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6ImtvcmllYnJ1aCIsImV4cCI6MTczMzA3MTIwNn0.uBNmBOS3FeArKtLqe6tel9U-OrVb0PdocoausOyqzYQ
