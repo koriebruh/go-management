@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
@@ -31,8 +32,7 @@ func NewAuthService(DB *gorm.DB, authRepository repository.AuthRepository, valid
 
 func (service AuthServiceImpl) Register(ctx *fiber.Ctx, request dto.RegisterRequest) (dto.WebResponse, error) {
 	if err := service.Validate.Struct(request); err != nil {
-
-		return utils.ErrorResponseWeb(utils.ErrBadRequest, err), nil
+		return utils.ErrorResponseWeb(utils.ErrBadRequest, err), fmt.Errorf("there are those who do not meet the criteria")
 	}
 
 	err := service.DB.Transaction(func(tx *gorm.DB) error {

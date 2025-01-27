@@ -15,3 +15,11 @@ select * from suppliers;
 
 desc items;
 select * from items;
+
+
+CREATE DATABASE go_management_test;
+USE go_management_test;
+SHOW TABLES ;
+
+select * from admins;
+delete from admins;

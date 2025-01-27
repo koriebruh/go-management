@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 	"koriebruh/management/cnf"
@@ -79,12 +80,21 @@ func (controller AuthControllerImpl) Login(ctx *fiber.Ctx) error {
 		Value: tokenValue,
 	})
 
-	res := utils.SuccessRes(http.StatusOK, "SUCCESS", map[string]string{"TOKEN": tokenValue})
+	res := utils.SuccessRes(http.StatusOK, "SUCCESS", map[string]string{"token": tokenValue})
 	return ctx.Status(http.StatusOK).JSON(res)
 
 }
 
 func (controller AuthControllerImpl) Logout(ctx *fiber.Ctx) error {
+
+	// VALIDATE TOKEN FROM HEADER
+	token := ctx.Get("Authorization")
+	if token == "" || len(token) < 7 || token[:7] != "Bearer " {
+		errResponse := utils.ErrorResponseWeb(utils.ErrUnauthorized, fmt.Errorf("error token not found"))
+		return ctx.Status(http.StatusUnauthorized).JSON(errResponse)
+	}
+
+	//DELETE TOKEN IN COOKIE CLIENT
 	ctx.Cookie(&fiber.Cookie{
 		Name:     "token",
 		Value:    "",
